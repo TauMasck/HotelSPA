@@ -57,11 +57,10 @@ namespace RestApp.Repository
                 }).SingleOrDefault();
         }
 
-        public Clients CreateClient(Client model)
+        public void SaveClient(Client model)
         {
             Clients client = new Clients()
             {
-                Id = model.Id,
                 Name_surname = model.NameSurname,
                 Id_number = model.IdNumber,
                 Company = model.Company,
@@ -74,8 +73,6 @@ namespace RestApp.Repository
 
             context.Clients.InsertOnSubmit(client);
             context.SubmitChanges();
-
-            return client;
         }
 
         public void UpdateClientById(int id, Client model)

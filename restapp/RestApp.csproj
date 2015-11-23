@@ -123,23 +123,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\DoctorsController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PatientsController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Controllers\VisitsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Doctor.cs" />
-    <Compile Include="Models\Operation.designer.cs">
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\HotelSPA.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Operation.dbml</DependentUpon>
+      <DependentUpon>HotelSPA.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Patient.cs" />
-    <Compile Include="Models\Visit.cs" />
+    <Compile Include="Models\Room.cs" />
+    <Compile Include="Models\Treatment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ClientRepository.cs" />
+    <Compile Include="Repository\RoomRepository.cs" />
+    <Compile Include="Repository\TreatmentRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -198,9 +198,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Operation.dbml">
+    <Content Include="Models\HotelSPA.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Operation.designer.cs</LastGenOutput>
+      <LastGenOutput>HotelSPA.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
@@ -256,8 +256,8 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\Operation.dbml.layout">
-      <DependentUpon>Operation.dbml</DependentUpon>
+    <None Include="Models\HotelSPA.dbml.layout">
+      <DependentUpon>HotelSPA.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

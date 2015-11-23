@@ -26,7 +26,8 @@ namespace RestApp.Controllers
         // GET clients
         public IEnumerable<Client> Get()
         {
-            return repository.GetClients();
+            // blad gdy null?
+            return this.repository.GetClients();
         }
 
         // GET clients/{id}
@@ -53,11 +54,13 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Clients client = repository.CreateClient(model);
+                //try-catch
+                this.repository.SaveClient(model);
+                //Clients client = repository.CreateClient(model);
 
-                var response = Request.CreateResponse(HttpStatusCode.Created, client);
+                var response = Request.CreateResponse<Client>(HttpStatusCode.Created, model);
 
-                string uri = Url.Link("DefaultApi", new { id = client.Id });
+                string uri = Url.Link("DefaultApi", new { id = model.Id });
                 response.Headers.Location = new Uri(uri);
                 return response;
             }
@@ -80,8 +83,9 @@ namespace RestApp.Controllers
                     repository.UpdateClientById(id, model);
                 }
 
-                catch
+                catch (Exception ex)
                 {
+                    //Console.WriteLine(ex.ToString());
                     return Request.CreateResponse(HttpStatusCode.NotFound);
                 }
      

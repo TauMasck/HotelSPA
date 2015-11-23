@@ -11,28 +11,8 @@
       <Column Name="Vegetarian" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Questionnaire" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Invoice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Client_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Client_id" Type="TreatmentsHistory" />
-      <Association Name="Room_Client" Member="Rooms" ThisKey="Room_number" OtherKey="Id" Type="Rooms" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.TreatmentsHistory" Member="TreatmentsHistories">
-    <Type Name="TreatmentsHistory">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Client_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Treatment_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Client_TreatmentsHistory" Member="Clients" ThisKey="Client_id" OtherKey="Id" Type="Clients" IsForeignKey="true" />
-      <Association Name="Treatment_TreatmentsHistory" Member="Treatments" ThisKey="Treatment_id" OtherKey="Id" Type="Treatments" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Rooms" Member="Rooms">
-    <Type Name="Rooms">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Number_person" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Size" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="Available" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Room_Client" Member="Clients" ThisKey="Id" OtherKey="Room_number" Type="Clients" />
+      <Association Name="Clients_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Client_id" Type="TreatmentsHistory" />
+      <Association Name="Room_Clients" Member="Rooms" Storage="_Room" ThisKey="Room_number" OtherKey="Id" Type="Rooms" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Treatments" Member="Treatments">
@@ -43,7 +23,29 @@
       <Column Name="Duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="Active" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Treatment_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Treatment_id" Type="TreatmentsHistory" />
+      <Association Name="Treatments_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Treatment_id" Type="TreatmentsHistory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rooms" Member="Rooms">
+    <Type Name="Rooms">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="How_many_persons" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Size" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Available" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Room_Clients" Member="Clients" ThisKey="Id" OtherKey="Room_number" Type="Clients" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TreatmentsHistory" Member="TreatmentsHistories">
+    <Type Name="TreatmentsHistory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Client_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Treatment_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="This_stay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Done" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Clients_TreatmentsHistory" Member="Clients" ThisKey="Client_id" OtherKey="Id" Type="Clients" IsForeignKey="true" />
+      <Association Name="Treatments_TreatmentsHistory" Member="Treatments" ThisKey="Treatment_id" OtherKey="Id" Type="Treatments" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
