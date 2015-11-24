@@ -15,27 +15,27 @@ namespace RestApp.Repository
             context = new HotelSPADataContext();
         }
 
-        public IEnumerable<Treatment> GetTreatments()
+        public IEnumerable<TreatmentViewModel> GetTreatments()
         {
-            List<Treatment> Treatments = new List<Treatment>();
+            List<TreatmentViewModel> Treatments = new List<TreatmentViewModel>();
 
             var treatments = context.Treatments.Select(t => t).ToList();
             foreach (var data in treatments)
             {
-                Treatments.Add(new Treatment()
+                Treatments.Add(new TreatmentViewModel()
                 {
                     Id = data.Id,
                     Decription = data.Description,
                     Duration = data.Duration,
                     Name = data.Name,
-                    Price = (float)data.Price,
+                    Price = data.Price,
                     Active = data.Active==1 ? true : false
                 });
             }
             return Treatments;
         }
 
-        public void SaveTreatment(Treatment model)
+        public void SaveTreatment(TreatmentViewModel model)
         {
             Treatments treatment = new Treatments()
             {
@@ -52,7 +52,7 @@ namespace RestApp.Repository
 
 
         // nie wiem czy potrzebne
-        public void UpdateTreatmentById(int id, Treatment model)
+        public void UpdateTreatmentById(int id, TreatmentViewModel model)
         {
             var treatment = context.Treatments.Single(x => x.Id == id);
             treatment.Description = model.Decription;
@@ -63,7 +63,7 @@ namespace RestApp.Repository
             context.SubmitChanges();
         }
 
-        public void DisableTreatmentById(int id, bool active)
+        public void ChangeTreatmentStatusById(int id, bool active)
         {
             var treatment = context.Treatments.Single(x => x.Id == id);
             treatment.Active = active ? 1 : 0;

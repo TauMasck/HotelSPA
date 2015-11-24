@@ -15,26 +15,26 @@ namespace RestApp.Repository
             context = new HotelSPADataContext();
         }
 
-        public IEnumerable<Room> GetRooms()
+        public IEnumerable<RoomViewModel> GetRooms()
         {
-            List<Room> Rooms = new List<Room>();
+            List<RoomViewModel> Rooms = new List<RoomViewModel>();
 
             var rooms = context.Rooms.Select(t => t).ToList();
             foreach (var data in rooms)
             {
-                Rooms.Add(new Room()
+                Rooms.Add(new RoomViewModel()
                 {
                     Id = data.Id,
                     HowManyPerson = data.How_many_persons,
-                    Price = (float)data.Price,
+                    Price = data.Price,
                     Available = data.Available == 1 ? true : false,
-                    Size = (float)data.Size
+                    Size = data.Size
                 });
             }
             return Rooms;
         }
 
-        public void SaveRoom(Room model)
+        public void SaveRoom(RoomViewModel model)
         {
             Rooms room = new Rooms()
             {
@@ -49,7 +49,8 @@ namespace RestApp.Repository
         }
 
 
-        public void UpdateRoomById(int id, Room model)
+        // nie wiem czy potrzebne
+        public void UpdateRoomById(int id, RoomViewModel model)
         {
             var room = context.Rooms.Single(x => x.Id == id);
             room.Size = model.Size;
@@ -59,8 +60,7 @@ namespace RestApp.Repository
             context.SubmitChanges();
         }
 
-        // nie wiem czy potrzebne
-        public void DisableRoomById(int id, bool active)
+        public void ChangeRoomStatusById(int id, bool active)
         {
             var room = context.Rooms.Single(x => x.Id == id);
             room.Available = active ? 1 : 0;

@@ -15,16 +15,16 @@ namespace RestApp.Repository
             context = new HotelSPADataContext();
         }
 
-        public IEnumerable<Client> GetClients()
+        public IEnumerable<ClientViewModel> GetClients()
         {
-            List<Client> Clients = new List<Client>();
+            List<ClientViewModel> Clients = new List<ClientViewModel>();
 
             var query = from client in context.Clients
                         select client;
             var clients = query.ToList();
             foreach (var data in clients)
             {
-                Clients.Add(new Client()
+                Clients.Add(new ClientViewModel()
                 {
                     Id = data.Id,
                     NameSurname = data.Name_surname,
@@ -40,10 +40,10 @@ namespace RestApp.Repository
             return Clients;
         }
 
-        public Client GetClientById(int id)
+        public ClientViewModel GetClientById(int id)
         {
             return context.Clients.Where(x => x.Id == id)
-                .Select(x => new Client()
+                .Select(x => new ClientViewModel()
                 {
                     Id = x.Id,
                     NameSurname = x.Name_surname,
@@ -57,7 +57,7 @@ namespace RestApp.Repository
                 }).SingleOrDefault();
         }
 
-        public void SaveClient(Client model)
+        public void SaveClient(ClientViewModel model)
         {
             Clients client = new Clients()
             {
@@ -75,7 +75,7 @@ namespace RestApp.Repository
             context.SubmitChanges();
         }
 
-        public void UpdateClientById(int id, Client model)
+        public void UpdateClientById(int id, ClientViewModel model)
         {
             var client = context.Clients.Single(x => x.Id == id);
             client.Name_surname = model.NameSurname;

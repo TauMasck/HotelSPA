@@ -24,16 +24,16 @@ namespace RestApp.Controllers
         }
 
         // GET clients
-        public IEnumerable<Client> Get()
+        public IEnumerable<ClientViewModel> Get()
         {
             // blad gdy null?
             return this.repository.GetClients();
         }
 
         // GET clients/{id}
-        public Client Get(int id)
+        public ClientViewModel Get(int id)
         {
-            Client client = repository.GetClientById(id);
+            ClientViewModel client = repository.GetClientById(id);
  
             if (client == null)
             {
@@ -50,7 +50,7 @@ namespace RestApp.Controllers
         }
 
         // POST clients 
-        public HttpResponseMessage Post(Client model)
+        public HttpResponseMessage Post(ClientViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace RestApp.Controllers
                 this.repository.SaveClient(model);
                 //Clients client = repository.CreateClient(model);
 
-                var response = Request.CreateResponse<Client>(HttpStatusCode.Created, model);
+                var response = Request.CreateResponse<ClientViewModel>(HttpStatusCode.Created, model);
 
                 string uri = Url.Link("DefaultApi", new { id = model.Id });
                 response.Headers.Location = new Uri(uri);
@@ -71,7 +71,7 @@ namespace RestApp.Controllers
         }
         
         // PUT clients/{id}
-        public HttpResponseMessage Put(int id, Client model)
+        public HttpResponseMessage Put(int id, ClientViewModel model)
         {
             if (ModelState.IsValid && id == model.Id)
             {

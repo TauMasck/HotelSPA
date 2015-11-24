@@ -5,7 +5,7 @@ using System.Web;
 
 namespace RestApp.Models
 {
-    public class Client
+    public class ClientViewModel
     {
         public int Id { get; set; }
         public string NameSurname { get; set; }
@@ -17,6 +17,6 @@ namespace RestApp.Models
         public bool Questionnaire { get; set; }
         public bool Invoice { get; set; }
 
-        public virtual Treatment Treatment;
+        public virtual TreatmentViewModel Treatment;
     }
 }
