@@ -9,7 +9,7 @@ namespace RestApp.Models
     {
         public int Id { get; set; }
         public string NameSurname { get; set; }
-        public int IdNumber { get; set; }
+        public string IdNumber { get; set; }
         public string Company { get; set; }
         public int RoomNumber { get; set; }
         public bool IsHere { get; set; }

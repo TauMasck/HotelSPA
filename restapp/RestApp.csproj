@@ -45,6 +45,8 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -130,14 +132,29 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientViewModel.cs" />
+    <Compile Include="Models\HotelSPA.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelSPA.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HotelSPA.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelSPA.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HotelSPA.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HotelSPA.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Room.cs" />
-    <Compile Include="Models\Treatment.cs" />
+    <Compile Include="Models\HotelSPA1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelSPA.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoomViewModel.cs" />
+    <Compile Include="Models\TreatmentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ClientRepository.cs" />
     <Compile Include="Repository\RoomRepository.cs" />
@@ -205,7 +222,25 @@
       <LastGenOutput>HotelSPA.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <EntityDeploy Include="Models\HotelSPA.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HotelSPA1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\HotelSPA.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HotelSPA.edmx</DependentUpon>
+      <LastGenOutput>HotelSPA.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\HotelSPA.edmx.diagram">
+      <DependentUpon>HotelSPA.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\HotelSPA.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HotelSPA.edmx</DependentUpon>
+      <LastGenOutput>HotelSPA.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Models\REST.sql" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

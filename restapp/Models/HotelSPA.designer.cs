@@ -117,7 +117,7 @@ namespace RestApp.Models
 		
 		private string _Name_surname;
 		
-		private int _Id_number;
+		private string _Id_number;
 		
 		private string _Company;
 		

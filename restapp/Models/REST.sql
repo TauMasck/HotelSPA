@@ -4,7 +4,7 @@ USE Hotel
 GO
 
 CREATE TABLE Rooms (
-	Id int identity primary key,
+	Id uniqueidentifier NOT NULL DEFAULT newid() primary key,
 	Number int not null,
 	How_many_persons int not null,
 	Size float not null,
@@ -12,7 +12,7 @@ CREATE TABLE Rooms (
 	Available int not null
 )
 CREATE TABLE Treatments (
-	Id int identity primary key not null,
+	Id uniqueidentifier NOT NULL DEFAULT newid() primary key,
 	Name varchar(50) not null,
 	Price float not null,
 	Duration int not null, -- w minutach
@@ -21,9 +21,9 @@ CREATE TABLE Treatments (
 )
 
 CREATE TABLE Clients (
-	Id int identity primary key not null,
+	Id uniqueidentifier NOT NULL DEFAULT newid() primary key,
 	Name_surname varchar(100) not null,
-	Id_number int not null,
+	Id_number varchar(50) not null,
 	Company varchar(100) not null,
 	Room_number int constraint FK_room references Rooms(Id) not null,
 	Is_here int not null,
@@ -33,7 +33,7 @@ CREATE TABLE Clients (
 )
 
 CREATE TABLE TreatmentsHistory(
-	Id int identity primary key not null,
+	Id uniqueidentifier NOT NULL DEFAULT newid() primary key,
 	Client_id int constraint FK_client references Clients(Id) not null,
 	Treatment_id int constraint FK_treatment references Treatments(Id) not null,
 	This_stay int not null,
