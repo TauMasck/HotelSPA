@@ -7,16 +7,16 @@ namespace RestApp.Models
 {
     public class ClientViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string NameSurname { get; set; }
         public string IdNumber { get; set; }
         public string Company { get; set; }
-        public int RoomNumber { get; set; }
+        public Guid RoomNumber { get; set; }
         public bool IsHere { get; set; }
         public bool Vegetarian { get; set; }
         public bool Questionnaire { get; set; }
         public bool Invoice { get; set; }
 
-        public virtual TreatmentViewModel Treatment;
+        //public virtual TreatmentViewModel Treatment;
     }
 }

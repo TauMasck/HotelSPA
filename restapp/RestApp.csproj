@@ -217,11 +217,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Models\HotelSPA.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>HotelSPA.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <EntityDeploy Include="Models\HotelSPA.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HotelSPA1.Designer.cs</LastGenOutput>
@@ -238,6 +233,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HotelSPA.edmx</DependentUpon>
       <LastGenOutput>HotelSPA.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\HotelSPA.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>HotelSPA.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Models\REST.sql" />

@@ -15,7 +15,7 @@ namespace RestApp.Repository
             context = new HotelSPADataContext();
         }
 
-        public IEnumerable<TreatmentViewModel> GetTreatments()
+        public IEnumerable<TreatmentViewModel> GetAll()
         {
             List<TreatmentViewModel> Treatments = new List<TreatmentViewModel>();
 
@@ -25,7 +25,7 @@ namespace RestApp.Repository
                 Treatments.Add(new TreatmentViewModel()
                 {
                     Id = data.Id,
-                    Decription = data.Description,
+                    Description = data.Description,
                     Duration = data.Duration,
                     Name = data.Name,
                     Price = data.Price,
@@ -35,11 +35,25 @@ namespace RestApp.Repository
             return Treatments;
         }
 
-        public void SaveTreatment(TreatmentViewModel model)
+        public TreatmentViewModel Get(Guid id)
+        {
+            return context.Treatments.Where(x => x.Id == id)
+                .Select(x => new TreatmentViewModel()
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    Duration = x.Duration,
+                    Active = x.Active == 1 ? true : false,
+                    Name = x.Name,
+                    Price = x.Price
+                }).SingleOrDefault();
+        }
+
+        public void Add(TreatmentViewModel model)
         {
             Treatments treatment = new Treatments()
             {
-                Description = model.Decription,
+                Description = model.Description,
                 Duration = model.Duration,
                 Active = model.Active ? 1 : 0,
                 Name = model.Name,
@@ -52,10 +66,10 @@ namespace RestApp.Repository
 
 
         // nie wiem czy potrzebne
-        public void UpdateTreatmentById(int id, TreatmentViewModel model)
+        public void Update(Guid id, TreatmentViewModel model)
         {
             var treatment = context.Treatments.Single(x => x.Id == id);
-            treatment.Description = model.Decription;
+            treatment.Description = model.Description;
             treatment.Duration = model.Duration;
             treatment.Active = model.Active ? 1 : 0;
             treatment.Name = model.Name;
@@ -63,11 +77,12 @@ namespace RestApp.Repository
             context.SubmitChanges();
         }
 
-        public void ChangeTreatmentStatusById(int id, bool active)
+        public Treatments ChangeStatus(Guid id, bool active)
         {
             var treatment = context.Treatments.Single(x => x.Id == id);
             treatment.Active = active ? 1 : 0;
             context.SubmitChanges();
+            return treatment;
         }
     }
 }

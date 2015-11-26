@@ -25,7 +25,7 @@ CREATE TABLE Clients (
 	Name_surname varchar(100) not null,
 	Id_number varchar(50) not null,
 	Company varchar(100) not null,
-	Room_number int constraint FK_room references Rooms(Id) not null,
+	Room_number uniqueidentifier constraint FK_room references Rooms(Id) not null,
 	Is_here int not null,
 	Vegetarian int not null,
 	Questionnaire int not null,
@@ -34,8 +34,8 @@ CREATE TABLE Clients (
 
 CREATE TABLE TreatmentsHistory(
 	Id uniqueidentifier NOT NULL DEFAULT newid() primary key,
-	Client_id int constraint FK_client references Clients(Id) not null,
-	Treatment_id int constraint FK_treatment references Treatments(Id) not null,
+	Client_id uniqueidentifier constraint FK_client references Clients(Id) not null,
+	Treatment_id uniqueidentifier constraint FK_treatment references Treatments(Id) not null,
 	This_stay int not null,
 	Done int not null
 )

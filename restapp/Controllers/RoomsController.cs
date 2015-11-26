@@ -20,8 +20,7 @@ namespace RestApp.Controllers
         // GET rooms
         public IEnumerable<RoomViewModel> Get()
         {
-            // blad gdy null?
-            return this.repository.GetRooms();
+            return this.repository.GetAll();
         }
 
         // POST rooms 
@@ -29,9 +28,7 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                //try-catch
-                this.repository.SaveRoom(model);
-                //Rooms room = repository.CreateRoom(model);
+                this.repository.Add(model);
 
                 var response = Request.CreateResponse<RoomViewModel>(HttpStatusCode.Created, model);
 
@@ -74,25 +71,18 @@ namespace RestApp.Controllers
 
 
         // PUT clients/{id}
-        public HttpResponseMessage Put(int id, bool active)
+        public HttpResponseMessage Put(Guid id, bool active)
         {
             if (ModelState.IsValid)
             {
-                //tu jeszcze bym dodała try-catch na submit changes 
-                //ew. osobna metoda, która by to robiła
-                //ew.2 łapanie po różnych wyjątkach tak jak niżej jest
-                try
-                {
-                    repository.ChangeRoomStatusById(id, active);
-                }
+                var existingRoom = this.repository.Get(id);
 
-                catch (Exception ex)
-                {
-                    //Console.WriteLine(ex.ToString());
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
-                }
-
-                return Request.CreateResponse(HttpStatusCode.OK);
+                if (existingRoom == null)
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                
+                var room = this.repository.ChangeStatus(id, active);
+     
+                return Request.CreateResponse(HttpStatusCode.OK, room);
             }
             else
             {

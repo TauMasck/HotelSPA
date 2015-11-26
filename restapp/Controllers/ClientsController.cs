@@ -26,14 +26,13 @@ namespace RestApp.Controllers
         // GET clients
         public IEnumerable<ClientViewModel> Get()
         {
-            // blad gdy null?
-            return this.repository.GetClients();
+            return this.repository.GetAll();
         }
 
         // GET clients/{id}
-        public ClientViewModel Get(int id)
+        public ClientViewModel Get(Guid id)
         {
-            ClientViewModel client = repository.GetClientById(id);
+            ClientViewModel client = repository.Get(id);
  
             if (client == null)
             {
@@ -54,9 +53,7 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                //try-catch
-                this.repository.SaveClient(model);
-                //Clients client = repository.CreateClient(model);
+                this.repository.Add(model);
 
                 var response = Request.CreateResponse<ClientViewModel>(HttpStatusCode.Created, model);
 
@@ -71,51 +68,35 @@ namespace RestApp.Controllers
         }
         
         // PUT clients/{id}
-        public HttpResponseMessage Put(int id, ClientViewModel model)
+        public Clients Put(Guid id, ClientViewModel model)
         {
-            if (ModelState.IsValid && id == model.Id)
-            {
-                //tu jeszcze bym dodała try-catch na submit changes 
-                //ew. osobna metoda, która by to robiła
-                //ew.2 łapanie po różnych wyjątkach tak jak niżej jest
-                try
-                {
-                    repository.UpdateClientById(id, model);
-                }
+            var existingClient = this.repository.Get(id);
 
-                catch (Exception ex)
-                {
-                    //Console.WriteLine(ex.ToString());
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
-                }
-     
-                return Request.CreateResponse(HttpStatusCode.OK);
+            if(existingClient == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            return this.repository.Update(id, model);
+        }
+
+        // DELETE clients/{id}
+        public HttpResponseMessage Delete(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingClient = this.repository.Get(id);
+
+                if (existingClient == null)
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+
+                var client = this.repository.Delete(id);
+
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+                //return Request.CreateResponse(HttpStatusCode.OK, client);
             }
             else
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-        }
-
-        // DELETE clients/{id}
-        public HttpResponseMessage Delete(int id)
-        {
-            // tu tak samo
-            try
-            {
-                var client = repository.DeleteClientById(id);
-
-                return Request.CreateResponse(HttpStatusCode.OK, client);
-            }
-            catch (System.InvalidOperationException)
-            {
-               return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-
-            catch
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
+            } 
             
         }
         

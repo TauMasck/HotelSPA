@@ -1,51 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Hotel" Class="HotelSPADataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=MONIKA-KOMPUTER\SQLEXPRESS;Initial Catalog=Hotel;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="HotelConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLexpress;Initial Catalog=Hotel;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="HotelConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Clients" Member="Clients">
     <Type Name="Clients">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Name_surname" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Id_number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Id_number" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Company" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Room_number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Room_number" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="Is_here" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Vegetarian" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Questionnaire" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Invoice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Clients_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Client_id" Type="TreatmentsHistory" />
-      <Association Name="Room_Clients" Member="Rooms" Storage="_Room" ThisKey="Room_number" OtherKey="Id" Type="Rooms" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Treatments" Member="Treatments">
-    <Type Name="Treatments">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="Duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="Active" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Treatments_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Treatment_id" Type="TreatmentsHistory" />
+      <Association Name="Client_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Client_id" Type="TreatmentsHistory" />
+      <Association Name="Room_Client" Member="Rooms" ThisKey="Room_number" OtherKey="Id" Type="Rooms" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Rooms" Member="Rooms">
     <Type Name="Rooms">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="How_many_persons" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Size" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="Available" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Room_Clients" Member="Clients" ThisKey="Id" OtherKey="Room_number" Type="Clients" />
+      <Association Name="Room_Client" Member="Clients" ThisKey="Id" OtherKey="Room_number" Type="Clients" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Treatments" Member="Treatments">
+    <Type Name="Treatments">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Treatment_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Treatment_id" Type="TreatmentsHistory" />
     </Type>
   </Table>
   <Table Name="dbo.TreatmentsHistory" Member="TreatmentsHistories">
     <Type Name="TreatmentsHistory">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Client_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Treatment_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Client_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Treatment_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="This_stay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Done" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Clients_TreatmentsHistory" Member="Clients" ThisKey="Client_id" OtherKey="Id" Type="Clients" IsForeignKey="true" />
-      <Association Name="Treatments_TreatmentsHistory" Member="Treatments" ThisKey="Treatment_id" OtherKey="Id" Type="Treatments" IsForeignKey="true" />
+      <Association Name="Client_TreatmentsHistory" Member="Clients" ThisKey="Client_id" OtherKey="Id" Type="Clients" IsForeignKey="true" />
+      <Association Name="Treatment_TreatmentsHistory" Member="Treatments" ThisKey="Treatment_id" OtherKey="Id" Type="Treatments" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

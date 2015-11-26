@@ -7,7 +7,7 @@ namespace RestApp.Models
 {
     public class RoomViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public int HowManyPerson { get; set; }
         public double Size { get; set; }
         public double Price { get; set; }

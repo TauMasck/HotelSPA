@@ -15,7 +15,7 @@ namespace RestApp.Repository
             context = new HotelSPADataContext();
         }
 
-        public IEnumerable<RoomViewModel> GetRooms()
+        public IEnumerable<RoomViewModel> GetAll()
         {
             List<RoomViewModel> Rooms = new List<RoomViewModel>();
 
@@ -34,7 +34,20 @@ namespace RestApp.Repository
             return Rooms;
         }
 
-        public void SaveRoom(RoomViewModel model)
+        public RoomViewModel Get(Guid id)
+        {
+            return context.Rooms.Where(x => x.Id == id)
+                .Select(x => new RoomViewModel()
+                {
+                    Id = x.Id,
+                    HowManyPerson = x.How_many_persons,
+                    Price = x.Price,
+                    Available = x.Available == 1 ? true : false,
+                    Size = x.Size
+                }).SingleOrDefault();
+        }
+
+        public void Add(RoomViewModel model)
         {
             Rooms room = new Rooms()
             {
@@ -48,9 +61,8 @@ namespace RestApp.Repository
             context.SubmitChanges();
         }
 
-
         // nie wiem czy potrzebne
-        public void UpdateRoomById(int id, RoomViewModel model)
+        public void Update(Guid id, RoomViewModel model)
         {
             var room = context.Rooms.Single(x => x.Id == id);
             room.Size = model.Size;
@@ -60,11 +72,12 @@ namespace RestApp.Repository
             context.SubmitChanges();
         }
 
-        public void ChangeRoomStatusById(int id, bool active)
+        public Rooms ChangeStatus(Guid id, bool active)
         {
             var room = context.Rooms.Single(x => x.Id == id);
             room.Available = active ? 1 : 0;
             context.SubmitChanges();
+            return room;
         }
     }
 }

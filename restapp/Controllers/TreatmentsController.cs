@@ -21,7 +21,7 @@ namespace RestApp.Controllers
         public IEnumerable<TreatmentViewModel> Get()
         {
             // blad gdy null?
-            return this.repository.GetTreatments();
+            return this.repository.GetAll();
         }
 
         // POST treatments 
@@ -29,9 +29,7 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                //try-catch
-                this.repository.SaveTreatment(model);
-                //Treatments treatment = repository.CreateTreatment(model);
+                this.repository.Add(model);
 
                 var response = Request.CreateResponse<TreatmentViewModel>(HttpStatusCode.Created, model);
 
@@ -74,25 +72,18 @@ namespace RestApp.Controllers
 
 
         // PUT clients/{id}
-        public HttpResponseMessage Put(int id, bool active)
+        public HttpResponseMessage Put(Guid id, bool active)
         {
             if (ModelState.IsValid)
             {
-                //tu jeszcze bym dodała try-catch na submit changes 
-                //ew. osobna metoda, która by to robiła
-                //ew.2 łapanie po różnych wyjątkach tak jak niżej jest
-                try
-                {
-                    repository.ChangeTreatmentStatusById(id, active);
-                }
+                var existingTreatment = this.repository.Get(id);
 
-                catch (Exception ex)
-                {
-                    //Console.WriteLine(ex.ToString());
-                    return Request.CreateResponse(HttpStatusCode.NotFound);
-                }
+                if (existingTreatment == null)
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                var treatment = this.repository.ChangeStatus(id, active);
+
+                return Request.CreateResponse(HttpStatusCode.OK, treatment);
             }
             else
             {
