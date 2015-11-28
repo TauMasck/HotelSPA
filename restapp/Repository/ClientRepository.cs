@@ -75,9 +75,9 @@ namespace RestApp.Repository
             context.SubmitChanges();
         }
 
-        public Clients Update(Guid id, ClientViewModel model)
+        public Clients Update(ClientViewModel model)
         {            
-            var client = context.Clients.Single(x => x.Id == id);
+            var client = context.Clients.Single(x => x.Id == model.Id);
             client.Name_surname = model.NameSurname;
             client.Id_number = model.IdNumber;
             client.Company = model.Company == "" ? null : model.Company;

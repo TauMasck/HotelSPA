@@ -25,12 +25,14 @@ namespace RestApp.Controllers
 
         #region GET
         // GET clients
+        // http://localhost:55534/api/clients
         public IEnumerable<ClientViewModel> Get()
         {
             return this.repository.GetAll();
         }
 
         // GET clients/{id}
+        // http://localhost:55534/api/clients/29c30781-2df5-4fd5-83ed-0564a83fe7cd
         public ClientViewModel Get(Guid id)
         {
             ClientViewModel client = repository.Get(id);
@@ -73,14 +75,19 @@ namespace RestApp.Controllers
 
         #region PUT
         // PUT clients/{id}
+        // PUT: czy powinna być możliwość zmiany pojedynczej właśności rekordu, czy zawsze cały obiekt będzie wysyłany?
         public Clients Put(Guid id, ClientViewModel model)
         {
-            var existingClient = this.repository.Get(id);
+            model.Id = id;
+            Console.WriteLine(model);
+            //dodać obsługę błędu dla pustego obiektu
+
+            var existingClient = this.repository.Get(model.Id);
 
             if(existingClient == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return this.repository.Update(id, model);
+            return this.repository.Update(model);
         }
         #endregion
 
