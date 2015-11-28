@@ -23,6 +23,7 @@ namespace RestApp.Controllers
             this.repository = new ClientRepository();
         }
 
+        #region GET
         // GET clients
         public IEnumerable<ClientViewModel> Get()
         {
@@ -47,7 +48,9 @@ namespace RestApp.Controllers
                 return client;
             }
         }
+        #endregion
 
+        #region POST
         // POST clients 
         public HttpResponseMessage Post(ClientViewModel model)
         {
@@ -64,9 +67,11 @@ namespace RestApp.Controllers
             else
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
-            } 
+            }
         }
-        
+        #endregion
+
+        #region PUT
         // PUT clients/{id}
         public Clients Put(Guid id, ClientViewModel model)
         {
@@ -77,7 +82,9 @@ namespace RestApp.Controllers
 
             return this.repository.Update(id, model);
         }
+        #endregion
 
+        #region DELETE
         // DELETE clients/{id}
         public HttpResponseMessage Delete(Guid id)
         {
@@ -96,9 +103,9 @@ namespace RestApp.Controllers
             else
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
-            } 
-            
+            }
         }
+        #endregion
         
     }
 }

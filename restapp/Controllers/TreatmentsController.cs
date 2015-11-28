@@ -17,13 +17,16 @@ namespace RestApp.Controllers
             this.repository = new TreatmentRepository();
         }
 
+        #region GET
         // GET treatments
         public IEnumerable<TreatmentViewModel> Get()
         {
             // blad gdy null?
             return this.repository.GetAll();
         }
+        #endregion
 
+        #region POST
         // POST treatments 
         public HttpResponseMessage Post(TreatmentViewModel model)
         {
@@ -42,7 +45,9 @@ namespace RestApp.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             } 
         }
+        #endregion
 
+        #region PUT
         // PUT clients/{id}
         //public HttpResponseMessage Put(int id, Treatment model)
         //{
@@ -90,5 +95,6 @@ namespace RestApp.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
+        #endregion
     }
 }

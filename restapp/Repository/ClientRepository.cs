@@ -29,7 +29,7 @@ namespace RestApp.Repository
                     Id = data.Id,
                     NameSurname = data.Name_surname,
                     IdNumber = data.Id_number,
-                    Company = data.Company,
+                    Company = data.Company == null ? "" : data.Company,
                     RoomNumber = data.Room_number,
                     IsHere = data.Is_here == 0 ? false : true,
                     Vegetarian = data.Vegetarian == 0 ? false : true,
@@ -48,7 +48,7 @@ namespace RestApp.Repository
                     Id = x.Id,
                     NameSurname = x.Name_surname,
                     IdNumber = x.Id_number,
-                    Company = x.Company,
+                    Company = x.Company == null ? "" : x.Company,
                     RoomNumber = x.Room_number,
                     IsHere = x.Is_here == 0 ? false : true,
                     Vegetarian = x.Vegetarian == 0 ? false : true,
@@ -63,7 +63,7 @@ namespace RestApp.Repository
             {
                 Name_surname = model.NameSurname,
                 Id_number = model.IdNumber,
-                Company = model.Company,
+                Company = model.Company == "" ? null : model.Company,
                 Room_number = model.RoomNumber,
                 Is_here = model.IsHere ? 0 : 1,
                 Vegetarian = model.Vegetarian ? 0 : 1,
@@ -80,7 +80,7 @@ namespace RestApp.Repository
             var client = context.Clients.Single(x => x.Id == id);
             client.Name_surname = model.NameSurname;
             client.Id_number = model.IdNumber;
-            client.Company = model.Company;
+            client.Company = model.Company == "" ? null : model.Company;
             client.Room_number = model.RoomNumber;
             client.Is_here = model.IsHere ? 0 : 1;
             client.Vegetarian = model.Vegetarian ? 0 : 1;
