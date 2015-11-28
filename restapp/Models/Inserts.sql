@@ -24,3 +24,18 @@ INSERT INTO Clients (Name_surname, Id_number, Company, Room_number,	Is_here,Vege
 
 INSERT INTO Clients (Name_surname, Id_number, Room_number,	Is_here,Vegetarian, Questionnaire, Invoice) VALUES
  ('Katarzyna Jak', 'P098IJ', (SELECT [Id] FROM Rooms WHERE Number=4), 1, 0, 0, 0)
+
+ 
+INSERT INTO TreatmentsHistory(Client_id, Treatment_id, This_stay, Done) VALUES
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Monika Piatek'), (SELECT [Id] FROM Treatments WHERE Name='MOROCCAN ROSE RITUAL'), 1, 1),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Monika Piatek'), (SELECT [Id] FROM Treatments WHERE Name='AROMA STONE THERAPY'), 1, 0),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Monika Piatek'), (SELECT [Id] FROM Treatments WHERE Name='Gold Treatment'), 0, 1),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Monika Piatek'), (SELECT [Id] FROM Treatments WHERE Name='EXOTIC LIME AND GINGER SALT GLOW'), 0, 1),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Tomasz Wisi'), (SELECT [Id] FROM Treatments WHERE Name='Body Masage'), 1, 1),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Tomasz Wisi'), (SELECT [Id] FROM Treatments WHERE Name='Chocolate Body Wrap'), 1, 0),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Tomasz Wisi'), (SELECT [Id] FROM Treatments WHERE Name='Elemis Clarity Facial'), 0, 1),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Katarzyna Jak'), (SELECT [Id] FROM Treatments WHERE Name='EXOTIC LIME AND GINGER SALT GLOW'), 1, 0),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Katarzyna Jak'), (SELECT [Id] FROM Treatments WHERE Name='Express Pedicure'), 1, 0),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Katarzyna Jak'), (SELECT [Id] FROM Treatments WHERE Name='Elemis Clarity Facial'), 1, 1),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Patrycja Klaczek'), (SELECT [Id] FROM Treatments WHERE Name='MOROCCAN ROSE RITUAL'), 0, 1),
+ ((SELECT [Id] FROM Clients WHERE Name_surname='Patrycja Klaczek'), (SELECT [Id] FROM Treatments WHERE Name='Chocolate Body Wrap'), 0, 0);
