@@ -36,12 +36,12 @@ namespace RestApp.Models
     partial void InsertTreatments(Treatments instance);
     partial void UpdateTreatments(Treatments instance);
     partial void DeleteTreatments(Treatments instance);
-    partial void InsertTreatmentsHistory(TreatmentsHistory instance);
-    partial void UpdateTreatmentsHistory(TreatmentsHistory instance);
-    partial void DeleteTreatmentsHistory(TreatmentsHistory instance);
     partial void InsertClients(Clients instance);
     partial void UpdateClients(Clients instance);
     partial void DeleteClients(Clients instance);
+    partial void InsertTreatmentsHistory(TreatmentsHistory instance);
+    partial void UpdateTreatmentsHistory(TreatmentsHistory instance);
+    partial void DeleteTreatmentsHistory(TreatmentsHistory instance);
     #endregion
 		
 		public HotelSPADataContext() : 
@@ -90,19 +90,19 @@ namespace RestApp.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<TreatmentsHistory> TreatmentsHistories
-		{
-			get
-			{
-				return this.GetTable<TreatmentsHistory>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Clients> Clients
 		{
 			get
 			{
 				return this.GetTable<Clients>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TreatmentsHistory> TreatmentsHistories
+		{
+			get
+			{
+				return this.GetTable<TreatmentsHistory>();
 			}
 		}
 	}
@@ -271,7 +271,7 @@ namespace RestApp.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rooms_Client", Storage="_Clients", ThisKey="Id", OtherKey="Room_number")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rooms_Clients", Storage="_Clients", ThisKey="Id", OtherKey="Room_number")]
 		public EntitySet<Clients> Clients
 		{
 			get
@@ -527,246 +527,6 @@ namespace RestApp.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TreatmentsHistory")]
-	public partial class TreatmentsHistory : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _Id;
-		
-		private System.Guid _Client_id;
-		
-		private System.Guid _Treatment_id;
-		
-		private int _This_stay;
-		
-		private int _Done;
-		
-		private EntityRef<Treatments> _Treatments;
-		
-		private EntityRef<Clients> _Clients;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(System.Guid value);
-    partial void OnIdChanged();
-    partial void OnClient_idChanging(System.Guid value);
-    partial void OnClient_idChanged();
-    partial void OnTreatment_idChanging(System.Guid value);
-    partial void OnTreatment_idChanged();
-    partial void OnThis_stayChanging(int value);
-    partial void OnThis_stayChanged();
-    partial void OnDoneChanging(int value);
-    partial void OnDoneChanged();
-    #endregion
-		
-		public TreatmentsHistory()
-		{
-			this._Treatments = default(EntityRef<Treatments>);
-			this._Clients = default(EntityRef<Clients>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Client_id", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid Client_id
-		{
-			get
-			{
-				return this._Client_id;
-			}
-			set
-			{
-				if ((this._Client_id != value))
-				{
-					if (this._Clients.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnClient_idChanging(value);
-					this.SendPropertyChanging();
-					this._Client_id = value;
-					this.SendPropertyChanged("Client_id");
-					this.OnClient_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Treatment_id", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid Treatment_id
-		{
-			get
-			{
-				return this._Treatment_id;
-			}
-			set
-			{
-				if ((this._Treatment_id != value))
-				{
-					if (this._Treatments.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTreatment_idChanging(value);
-					this.SendPropertyChanging();
-					this._Treatment_id = value;
-					this.SendPropertyChanged("Treatment_id");
-					this.OnTreatment_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_This_stay", DbType="Int NOT NULL")]
-		public int This_stay
-		{
-			get
-			{
-				return this._This_stay;
-			}
-			set
-			{
-				if ((this._This_stay != value))
-				{
-					this.OnThis_stayChanging(value);
-					this.SendPropertyChanging();
-					this._This_stay = value;
-					this.SendPropertyChanged("This_stay");
-					this.OnThis_stayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Done", DbType="Int NOT NULL")]
-		public int Done
-		{
-			get
-			{
-				return this._Done;
-			}
-			set
-			{
-				if ((this._Done != value))
-				{
-					this.OnDoneChanging(value);
-					this.SendPropertyChanging();
-					this._Done = value;
-					this.SendPropertyChanged("Done");
-					this.OnDoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Treatments_TreatmentsHistory", Storage="_Treatments", ThisKey="Treatment_id", OtherKey="Id", IsForeignKey=true)]
-		public Treatments Treatments
-		{
-			get
-			{
-				return this._Treatments.Entity;
-			}
-			set
-			{
-				Treatments previousValue = this._Treatments.Entity;
-				if (((previousValue != value) 
-							|| (this._Treatments.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Treatments.Entity = null;
-						previousValue.TreatmentsHistories.Remove(this);
-					}
-					this._Treatments.Entity = value;
-					if ((value != null))
-					{
-						value.TreatmentsHistories.Add(this);
-						this._Treatment_id = value.Id;
-					}
-					else
-					{
-						this._Treatment_id = default(System.Guid);
-					}
-					this.SendPropertyChanged("Treatments");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_TreatmentsHistory", Storage="_Clients", ThisKey="Client_id", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Clients Clients
-		{
-			get
-			{
-				return this._Clients.Entity;
-			}
-			set
-			{
-				Clients previousValue = this._Clients.Entity;
-				if (((previousValue != value) 
-							|| (this._Clients.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Clients.Entity = null;
-						previousValue.TreatmentsHistories.Remove(this);
-					}
-					this._Clients.Entity = value;
-					if ((value != null))
-					{
-						value.TreatmentsHistories.Add(this);
-						this._Client_id = value.Id;
-					}
-					else
-					{
-						this._Client_id = default(System.Guid);
-					}
-					this.SendPropertyChanged("Clients");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clients")]
 	public partial class Clients : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1010,7 +770,7 @@ namespace RestApp.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_TreatmentsHistory", Storage="_TreatmentsHistories", ThisKey="Id", OtherKey="Client_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Clients_TreatmentsHistory", Storage="_TreatmentsHistories", ThisKey="Id", OtherKey="Client_id")]
 		public EntitySet<TreatmentsHistory> TreatmentsHistories
 		{
 			get
@@ -1023,7 +783,7 @@ namespace RestApp.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rooms_Client", Storage="_Rooms", ThisKey="Room_number", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rooms_Clients", Storage="_Rooms", ThisKey="Room_number", OtherKey="Id", IsForeignKey=true)]
 		public Rooms Rooms
 		{
 			get
@@ -1087,6 +847,246 @@ namespace RestApp.Models
 		{
 			this.SendPropertyChanging();
 			entity.Clients = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TreatmentsHistory")]
+	public partial class TreatmentsHistory : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _Id;
+		
+		private System.Guid _Client_id;
+		
+		private System.Guid _Treatment_id;
+		
+		private int _This_stay;
+		
+		private int _Is_done;
+		
+		private EntityRef<Clients> _Clients;
+		
+		private EntityRef<Treatments> _Treatments;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(System.Guid value);
+    partial void OnIdChanged();
+    partial void OnClient_idChanging(System.Guid value);
+    partial void OnClient_idChanged();
+    partial void OnTreatment_idChanging(System.Guid value);
+    partial void OnTreatment_idChanged();
+    partial void OnThis_stayChanging(int value);
+    partial void OnThis_stayChanged();
+    partial void OnIs_doneChanging(int value);
+    partial void OnIs_doneChanged();
+    #endregion
+		
+		public TreatmentsHistory()
+		{
+			this._Clients = default(EntityRef<Clients>);
+			this._Treatments = default(EntityRef<Treatments>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Client_id", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid Client_id
+		{
+			get
+			{
+				return this._Client_id;
+			}
+			set
+			{
+				if ((this._Client_id != value))
+				{
+					if (this._Clients.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnClient_idChanging(value);
+					this.SendPropertyChanging();
+					this._Client_id = value;
+					this.SendPropertyChanged("Client_id");
+					this.OnClient_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Treatment_id", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid Treatment_id
+		{
+			get
+			{
+				return this._Treatment_id;
+			}
+			set
+			{
+				if ((this._Treatment_id != value))
+				{
+					if (this._Treatments.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTreatment_idChanging(value);
+					this.SendPropertyChanging();
+					this._Treatment_id = value;
+					this.SendPropertyChanged("Treatment_id");
+					this.OnTreatment_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_This_stay", DbType="Int NOT NULL")]
+		public int This_stay
+		{
+			get
+			{
+				return this._This_stay;
+			}
+			set
+			{
+				if ((this._This_stay != value))
+				{
+					this.OnThis_stayChanging(value);
+					this.SendPropertyChanging();
+					this._This_stay = value;
+					this.SendPropertyChanged("This_stay");
+					this.OnThis_stayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Is_done", DbType="Int NOT NULL")]
+		public int Is_done
+		{
+			get
+			{
+				return this._Is_done;
+			}
+			set
+			{
+				if ((this._Is_done != value))
+				{
+					this.OnIs_doneChanging(value);
+					this.SendPropertyChanging();
+					this._Is_done = value;
+					this.SendPropertyChanged("Is_done");
+					this.OnIs_doneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Clients_TreatmentsHistory", Storage="_Clients", ThisKey="Client_id", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Clients Clients
+		{
+			get
+			{
+				return this._Clients.Entity;
+			}
+			set
+			{
+				Clients previousValue = this._Clients.Entity;
+				if (((previousValue != value) 
+							|| (this._Clients.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Clients.Entity = null;
+						previousValue.TreatmentsHistories.Remove(this);
+					}
+					this._Clients.Entity = value;
+					if ((value != null))
+					{
+						value.TreatmentsHistories.Add(this);
+						this._Client_id = value.Id;
+					}
+					else
+					{
+						this._Client_id = default(System.Guid);
+					}
+					this.SendPropertyChanged("Clients");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Treatments_TreatmentsHistory", Storage="_Treatments", ThisKey="Treatment_id", OtherKey="Id", IsForeignKey=true)]
+		public Treatments Treatments
+		{
+			get
+			{
+				return this._Treatments.Entity;
+			}
+			set
+			{
+				Treatments previousValue = this._Treatments.Entity;
+				if (((previousValue != value) 
+							|| (this._Treatments.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Treatments.Entity = null;
+						previousValue.TreatmentsHistories.Remove(this);
+					}
+					this._Treatments.Entity = value;
+					if ((value != null))
+					{
+						value.TreatmentsHistories.Add(this);
+						this._Treatment_id = value.Id;
+					}
+					else
+					{
+						this._Treatment_id = default(System.Guid);
+					}
+					this.SendPropertyChanged("Treatments");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

@@ -16,7 +16,5 @@ namespace RestApp.Models
         public bool Vegetarian { get; set; }
         public bool Questionnaire { get; set; }
         public bool Invoice { get; set; }
-
-        //public virtual TreatmentViewModel Treatment;
     }
 }

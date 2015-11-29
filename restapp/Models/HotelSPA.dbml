@@ -8,7 +8,7 @@
       <Column Name="Size" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="Available" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Rooms_Client" Member="Clients" ThisKey="Id" OtherKey="Room_number" Type="Clients" />
+      <Association Name="Rooms_Clients" Member="Clients" ThisKey="Id" OtherKey="Room_number" Type="Clients" />
     </Type>
   </Table>
   <Table Name="dbo.Treatments" Member="Treatments">
@@ -22,17 +22,6 @@
       <Association Name="Treatments_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Treatment_id" Type="TreatmentsHistory" />
     </Type>
   </Table>
-  <Table Name="dbo.TreatmentsHistory" Member="TreatmentsHistories">
-    <Type Name="TreatmentsHistory">
-      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Client_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="Treatment_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="This_stay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Done" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Treatments_TreatmentsHistory" Member="Treatments" ThisKey="Treatment_id" OtherKey="Id" Type="Treatments" IsForeignKey="true" />
-      <Association Name="Client_TreatmentsHistory" Member="Clients" ThisKey="Client_id" OtherKey="Id" Type="Clients" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Clients" Member="Clients">
     <Type Name="Clients">
       <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -44,8 +33,19 @@
       <Column Name="Vegetarian" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Questionnaire" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Invoice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Client_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Client_id" Type="TreatmentsHistory" />
-      <Association Name="Rooms_Client" Member="Rooms" ThisKey="Room_number" OtherKey="Id" Type="Rooms" IsForeignKey="true" />
+      <Association Name="Clients_TreatmentsHistory" Member="TreatmentsHistories" ThisKey="Id" OtherKey="Client_id" Type="TreatmentsHistory" />
+      <Association Name="Rooms_Clients" Member="Rooms" ThisKey="Room_number" OtherKey="Id" Type="Rooms" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TreatmentsHistory" Member="TreatmentsHistories">
+    <Type Name="TreatmentsHistory">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Client_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Treatment_id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="This_stay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Is_done" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Clients_TreatmentsHistory" Member="Clients" ThisKey="Client_id" OtherKey="Id" Type="Clients" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Treatments_TreatmentsHistory" Member="Treatments" ThisKey="Treatment_id" OtherKey="Id" Type="Treatments" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

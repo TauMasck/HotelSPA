@@ -8,23 +8,25 @@ namespace RestApp.Repository
 {
     public class ClientRepository
     {
-        private HotelSPADataContext context;
+        private HotelSPADataContext _context;
+        private TreatmentRepository _treatmentRepository;
 
         public ClientRepository()
         {
-            context = new HotelSPADataContext();
+            _context = new HotelSPADataContext();
+            _treatmentRepository = new TreatmentRepository();
         }
 
         public IEnumerable<ClientViewModel> GetAll()
         {
-            List<ClientViewModel> Clients = new List<ClientViewModel>();
+            List<ClientViewModel> clientsList = new List<ClientViewModel>();
 
-            var query = from client in context.Clients
+            var query = from client in _context.Clients
                         select client;
             var clients = query.ToList();
             foreach (var data in clients)
             {
-                Clients.Add(new ClientViewModel()
+                clientsList.Add(new ClientViewModel()
                 {
                     Id = data.Id,
                     NameSurname = data.Name_surname,
@@ -37,12 +39,12 @@ namespace RestApp.Repository
                     Invoice = data.Invoice == 0 ? false : true
                 });
             }
-            return Clients;
+            return clientsList;
         }
 
         public ClientViewModel Get(Guid id)
         {
-            return context.Clients.Where(x => x.Id == id)
+            return _context.Clients.Where(x => x.Id == id)
                 .Select(x => new ClientViewModel()
                 {
                     Id = x.Id,
@@ -55,6 +57,18 @@ namespace RestApp.Repository
                     Questionnaire = x.Questionnaire == 0 ? false : true,
                     Invoice = x.Invoice == 0 ? false : true
                 }).SingleOrDefault();
+        }
+
+        public IEnumerable<ClientHistoryViewModel> GetTreatmentsHistory(Guid id)
+        {
+            return _context.TreatmentsHistories.Where(x => x.Client_id == id)
+                .Select(x => new ClientHistoryViewModel()
+                {
+                    ClientId = x.Client_id,
+                    Treatment = _treatmentRepository.Get(x.Treatment_id),
+                    ThisStay = x.This_stay == 0 ? false : true,
+                    IsDone = x.Is_done == 0 ? false : true
+                });
         }
 
         public void Add(ClientViewModel model)
@@ -71,13 +85,13 @@ namespace RestApp.Repository
                 Invoice = model.Invoice ? 0 : 1,
             };
 
-            context.Clients.InsertOnSubmit(client);
-            context.SubmitChanges();
+            _context.Clients.InsertOnSubmit(client);
+            _context.SubmitChanges();
         }
 
         public Clients Update(ClientViewModel model)
         {            
-            var client = context.Clients.Single(x => x.Id == model.Id);
+            var client = _context.Clients.Single(x => x.Id == model.Id);
             client.Name_surname = model.NameSurname;
             client.Id_number = model.IdNumber;
             client.Company = model.Company == "" ? null : model.Company;
@@ -86,16 +100,16 @@ namespace RestApp.Repository
             client.Vegetarian = model.Vegetarian ? 0 : 1;
             client.Questionnaire = model.Questionnaire ? 0 : 1;
             client.Invoice = model.Invoice ? 0 : 1;
-            context.SubmitChanges();
+            _context.SubmitChanges();
 
             return client;
         }
 
         public Clients Delete(Guid id)
         {
-            var client = context.Clients.Single(x => x.Id == id);
-            context.Clients.DeleteOnSubmit(client);
-            context.SubmitChanges();
+            var client = _context.Clients.Single(x => x.Id == id);
+            _context.Clients.DeleteOnSubmit(client);
+            _context.SubmitChanges();
             return client;
         }
 

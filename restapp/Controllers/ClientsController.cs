@@ -8,7 +8,8 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Http;
-using System.Web.Mvc;
+using System.ServiceModel;
+using System.ServiceModel.Web;
 
 // dokumentacja
 // https://msdn.microsoft.com/pl-pl/library/b2s063f7(v=vs.120).aspx
@@ -17,25 +18,27 @@ namespace RestApp.Controllers
 {
     public class ClientsController : ApiController
     {
-        private ClientRepository repository;
+        private ClientRepository _repository;
 
         public ClientsController() {
-            this.repository = new ClientRepository();
+            this._repository = new ClientRepository();
         }
 
         #region GET
         // GET clients
         // http://localhost:55534/api/clients
+        [HttpGet]
         public IEnumerable<ClientViewModel> Get()
         {
-            return this.repository.GetAll();
+            return _repository.GetAll();
         }
 
         // GET clients/{id}
-        // http://localhost:55534/api/clients/29c30781-2df5-4fd5-83ed-0564a83fe7cd
+        // http://localhost:55534/api/Clients/{id}/getbyid
+        [HttpGet, ActionName("getById")]
         public ClientViewModel Get(Guid id)
         {
-            ClientViewModel client = repository.Get(id);
+            ClientViewModel client = _repository.Get(id);
  
             if (client == null)
             {
@@ -50,6 +53,26 @@ namespace RestApp.Controllers
                 return client;
             }
         }
+
+        //http://localhost:55534/api/Clients/{id}/gettreatments
+        //[WebInvoke(Method = "GET", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [ActionName("getTreatments")]
+        public IEnumerable<ClientHistoryViewModel> GetTreatments(Guid id) 
+        {
+            ClientViewModel client = _repository.Get(id);
+
+            if (client == null)
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("Client not found")
+                });
+            }
+            return _repository.GetTreatmentsHistory(id);//"udało się pobrać";
+        }
+
+
         #endregion
 
         #region POST
@@ -58,7 +81,7 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.repository.Add(model);
+                _repository.Add(model);
 
                 var response = Request.CreateResponse<ClientViewModel>(HttpStatusCode.Created, model);
 
@@ -82,12 +105,12 @@ namespace RestApp.Controllers
             Console.WriteLine(model);
             //dodać obsługę błędu dla pustego obiektu
 
-            var existingClient = this.repository.Get(model.Id);
+            var existingClient = _repository.Get(model.Id);
 
             if(existingClient == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return this.repository.Update(model);
+            return _repository.Update(model);
         }
         #endregion
 
@@ -97,12 +120,12 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingClient = this.repository.Get(id);
+                var existingClient = _repository.Get(id);
 
                 if (existingClient == null)
                     throw new HttpResponseException(HttpStatusCode.NotFound);
 
-                var client = this.repository.Delete(id);
+                var client = _repository.Delete(id);
 
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
                 //return Request.CreateResponse(HttpStatusCode.OK, client);
