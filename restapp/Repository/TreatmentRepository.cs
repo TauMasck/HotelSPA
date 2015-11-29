@@ -28,8 +28,8 @@ namespace RestApp.Repository
                     Description = data.Description,
                     Duration = data.Duration,
                     Name = data.Name,
-                    Price = data.Price,
-                    Active = data.Active==1 ? true : false
+                    Price = data.Price//,
+                    //Active = data.Active==1 ? true : false
                 });
             }
             return Treatments;
@@ -43,7 +43,7 @@ namespace RestApp.Repository
                     Id = x.Id,
                     Description = x.Description,
                     Duration = x.Duration,
-                    Active = x.Active == 1 ? true : false,
+                    //Active = x.Active == 1 ? true : false,
                     Name = x.Name,
                     Price = x.Price
                 }).SingleOrDefault();
@@ -55,7 +55,7 @@ namespace RestApp.Repository
             {
                 Description = model.Description,
                 Duration = model.Duration,
-                Active = model.Active ? 1 : 0,
+                Active = 1,
                 Name = model.Name,
                 Price = model.Price
             };
@@ -65,18 +65,18 @@ namespace RestApp.Repository
         }
 
 
+        /*
         // nie wiem czy potrzebne
         public void Update(Guid id, TreatmentViewModel model)
         {
             var treatment = context.Treatments.Single(x => x.Id == id);
             treatment.Description = model.Description;
             treatment.Duration = model.Duration;
-            treatment.Active = model.Active ? 1 : 0;
+            treatment.Active = 1;
             treatment.Name = model.Name;
             treatment.Price = model.Price;
             context.SubmitChanges();
         }
-
         public Treatments ChangeStatus(Guid id, bool active)
         {
             var treatment = context.Treatments.Single(x => x.Id == id);
@@ -84,5 +84,6 @@ namespace RestApp.Repository
             context.SubmitChanges();
             return treatment;
         }
+        */
     }
 }

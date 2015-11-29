@@ -21,7 +21,6 @@ namespace RestApp.Controllers
         // GET treatments
         public IEnumerable<TreatmentViewModel> Get()
         {
-            // blad gdy null?
             return this.repository.GetAll();
         }
         #endregion
@@ -75,7 +74,7 @@ namespace RestApp.Controllers
         //    }
         //}
 
-
+        /*
         // PUT clients/{id}
         public HttpResponseMessage Put(Guid id, bool active)
         {
@@ -95,6 +94,7 @@ namespace RestApp.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
+        */
         #endregion
     }
 }
