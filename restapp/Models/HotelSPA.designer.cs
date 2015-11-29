@@ -781,7 +781,7 @@ namespace RestApp.Models
 		
 		private string _Company;
 		
-		private System.Guid _Room_number;
+		private System.Nullable<System.Guid> _Room_number;
 		
 		private int _Is_here;
 		
@@ -807,7 +807,7 @@ namespace RestApp.Models
     partial void OnId_numberChanged();
     partial void OnCompanyChanging(string value);
     partial void OnCompanyChanged();
-    partial void OnRoom_numberChanging(System.Guid value);
+    partial void OnRoom_numberChanging(System.Nullable<System.Guid> value);
     partial void OnRoom_numberChanged();
     partial void OnIs_hereChanging(int value);
     partial void OnIs_hereChanged();
@@ -906,8 +906,8 @@ namespace RestApp.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Room_number", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid Room_number
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Room_number", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> Room_number
 		{
 			get
 			{
@@ -1050,7 +1050,7 @@ namespace RestApp.Models
 					}
 					else
 					{
-						this._Room_number = default(System.Guid);
+						this._Room_number = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("Rooms");
 				}

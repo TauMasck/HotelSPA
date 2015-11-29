@@ -29,7 +29,7 @@ CREATE TABLE Clients (
 	Name_surname varchar(100) not null,
 	Id_number varchar(50) not null,
 	Company varchar(100) null,
-	Room_number uniqueidentifier constraint FK_room references Rooms(Id) not null,
+	Room_number uniqueidentifier constraint FK_room references Rooms(Id) null,
 	Is_here int not null,
 	Vegetarian int not null,
 	Questionnaire int not null,
@@ -45,6 +45,6 @@ CREATE TABLE TreatmentsHistory(
 	Client_id uniqueidentifier constraint FK_client references Clients(Id) ON DELETE CASCADE not null,
 	Treatment_id uniqueidentifier constraint FK_treatment references Treatments(Id) not null,
 	This_stay int not null,
-	Done int not null
+	Is_done int not null
 )
 

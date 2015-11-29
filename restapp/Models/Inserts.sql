@@ -26,7 +26,7 @@ INSERT INTO Clients (Name_surname, Id_number, Room_number,	Is_here,Vegetarian, Q
  ('Katarzyna Jak', 'P098IJ', (SELECT [Id] FROM Rooms WHERE Number=4), 1, 0, 0, 0)
 
  
-INSERT INTO TreatmentsHistory(Client_id, Treatment_id, This_stay, Done) VALUES
+INSERT INTO TreatmentsHistory(Client_id, Treatment_id, This_stay, Is_done) VALUES
  ((SELECT [Id] FROM Clients WHERE Name_surname='Monika Piatek'), (SELECT [Id] FROM Treatments WHERE Name='MOROCCAN ROSE RITUAL'), 1, 1),
  ((SELECT [Id] FROM Clients WHERE Name_surname='Monika Piatek'), (SELECT [Id] FROM Treatments WHERE Name='AROMA STONE THERAPY'), 1, 0),
  ((SELECT [Id] FROM Clients WHERE Name_surname='Monika Piatek'), (SELECT [Id] FROM Treatments WHERE Name='Gold Treatment'), 0, 1),

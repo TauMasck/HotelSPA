@@ -39,7 +39,7 @@
       <Column Name="Name_surname" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="Id_number" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Company" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="Room_number" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Room_number" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Is_here" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Vegetarian" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Questionnaire" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />

@@ -11,7 +11,7 @@ namespace RestApp.Models
         public string NameSurname { get; set; }
         public string IdNumber { get; set; }
         public string Company { get; set; }
-        public Guid RoomNumber { get; set; }
+        public Guid? RoomNumber { get; set; }
         public bool IsHere { get; set; }
         public bool Vegetarian { get; set; }
         public bool Questionnaire { get; set; }
