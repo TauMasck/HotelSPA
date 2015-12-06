@@ -7,3 +7,11 @@
     "Questionnaire": false,
     "Invoice": true
 }
+
+
+{
+  "Name": "Example treatment",
+  "Price": 100,
+  "Duration": 60,
+  "Description": "This is description of new treatment"
+}

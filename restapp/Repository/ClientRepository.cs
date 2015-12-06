@@ -8,7 +8,7 @@ using System.Configuration;
 
 namespace RestApp.Repository
 {
-    public class ClientRepository
+    public class ClientRepository : ViewModel
     {
         private HotelSPADataContext _context;
         private TreatmentRepository _treatmentRepository;
@@ -112,6 +112,14 @@ namespace RestApp.Repository
             return client;
         }
 
+        public Clients ChangeQuestStatus(Guid id, bool status)
+        {
+            var client = _context.Clients.Single(x => x.Id == id);
+            client.Questionnaire = status ? 0 : 1;
+            _context.SubmitChanges();
+            return client;
+        }
+
         public Clients Delete(Guid id)
         {
             var client = _context.Clients.Single(x => x.Id == id);
@@ -119,17 +127,5 @@ namespace RestApp.Repository
             _context.SubmitChanges();
             return client;
         }
-
-        private Guid GetNewId()
-        {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["HotelConnectionString"].ConnectionString);
-            var query = "select newid()";
-            conn.Open();
-            SqlCommand com = new SqlCommand(query, conn);
-            var guid = new Guid(com.ExecuteScalar().ToString());
-            conn.Close();
-            return guid;
-        }
-
     }
 }

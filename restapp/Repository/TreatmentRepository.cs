@@ -6,7 +6,7 @@ using System.Web;
 
 namespace RestApp.Repository
 {
-    public class TreatmentRepository
+    public class TreatmentRepository : ViewModel
     {
         private HotelSPADataContext context;
 
@@ -49,10 +49,11 @@ namespace RestApp.Repository
                 }).SingleOrDefault();
         }
 
-        public void Add(TreatmentViewModel model)
+        public TreatmentViewModel Add(TreatmentViewModel model)
         {
             Treatments treatment = new Treatments()
             {
+                Id = GetNewId(),
                 Description = model.Description,
                 Duration = model.Duration,
                 Active = 1,
@@ -62,6 +63,9 @@ namespace RestApp.Repository
 
             context.Treatments.InsertOnSubmit(treatment);
             context.SubmitChanges();
+
+            model.Id = treatment.Id;
+            return model;
         }
 
 

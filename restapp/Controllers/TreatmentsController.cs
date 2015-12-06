@@ -11,17 +11,17 @@ namespace RestApp.Controllers
 {
     public class TreatmentsController : ApiController
     {
-        private TreatmentRepository repository;
+        private TreatmentRepository _repository;
 
         public TreatmentsController() {
-            this.repository = new TreatmentRepository();
+            _repository = new TreatmentRepository();
         }
 
         #region GET
         // GET treatments
         public IEnumerable<TreatmentViewModel> Get()
         {
-            return this.repository.GetAll();
+            return _repository.GetAll();
         }
         #endregion
 
@@ -31,9 +31,21 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.repository.Add(model);
+                TreatmentViewModel treatment;
+                try
+                {
+                    treatment = _repository.Add(model);
+                }
+                catch (NullReferenceException)
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.NotFound,
+                        Content = new StringContent("Can't add undefined object.")
+                    });
+                }
 
-                var response = Request.CreateResponse<TreatmentViewModel>(HttpStatusCode.Created, model);
+                var response = Request.CreateResponse<TreatmentViewModel>(HttpStatusCode.Created, treatment);
 
                 string uri = Url.Link("DefaultApi", new { id = model.Id });
                 response.Headers.Location = new Uri(uri);
@@ -80,12 +92,12 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingTreatment = this.repository.Get(id);
+                var existingTreatment = _repository.Get(id);
 
                 if (existingTreatment == null)
                     throw new HttpResponseException(HttpStatusCode.NotFound);
 
-                var treatment = this.repository.ChangeStatus(id, active);
+                var treatment = _repository.ChangeStatus(id, active);
 
                 return Request.CreateResponse(HttpStatusCode.OK, treatment);
             }

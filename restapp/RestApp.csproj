@@ -158,6 +158,7 @@
     <Compile Include="Models\RoomViewModel.cs" />
     <Compile Include="Models\ClientHistoryViewModel.cs" />
     <Compile Include="Models\TreatmentViewModel.cs" />
+    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ClientRepository.cs" />
     <Compile Include="Repository\RoomRepository.cs" />

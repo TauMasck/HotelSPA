@@ -81,7 +81,19 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var client = _repository.Add(model);
+                ClientViewModel client;
+                try
+                {
+                     client = _repository.Add(model);
+                }
+                catch (NullReferenceException)
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.NotFound,
+                        Content = new StringContent("Can't add undefined object")
+                    });
+                }
 
                 var response = Request.CreateResponse<ClientViewModel>(HttpStatusCode.Created, client);
 
@@ -93,24 +105,49 @@ namespace RestApp.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
-        }
+        }        
         #endregion
 
         #region PUT
         // PUT clients/{id}
-        // PUT: czy powinna być możliwość zmiany pojedynczej właśności rekordu, czy zawsze cały obiekt będzie wysyłany?
         public Clients Put(Guid id, ClientViewModel model)
         {
             model.Id = id;
-            Console.WriteLine(model);
-            //dodać obsługę błędu dla pustego obiektu
 
             var existingClient = _repository.Get(model.Id);
-
-            if(existingClient == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+            if (existingClient == null)
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("Client not found")
+                });
+            }
 
             return _repository.Update(model);
+        }
+
+
+        [HttpPost, ActionName("donQuest")]
+        public Clients Put(Guid id, bool done)
+        {
+            if (ModelState.IsValid)
+            {
+                var client = _repository.Get(id);
+                if (client == null)
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.NotFound,
+                        Content = new StringContent("Client not found")
+                    });
+                }
+                return _repository.ChangeQuestStatus(id, done);
+            }
+            else
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
         }
         #endregion
 
