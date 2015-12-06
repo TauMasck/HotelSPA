@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace RestApp.Controllers
 {
+	/// <summary>
+	/// Home controller class.
+	/// </summary>
     public class HomeController : Controller
     {
         public ActionResult Index()

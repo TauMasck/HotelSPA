@@ -6,15 +6,24 @@ using System.Web;
 
 namespace RestApp.Repository
 {
+	/// <summary>
+	/// Room repository class.
+	/// </summary>
     public class RoomRepository
     {
         private HotelSPADataContext context;
-
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RestApp.Repository.RoomRepository"/> class.
+		/// </summary>
         public RoomRepository()
         {
             context = new HotelSPADataContext();
         }
 
+		/// <summary>
+		/// Gets all room.
+		/// </summary>
+		/// <returns>All rooms.</returns>
         public IEnumerable<RoomViewModel> GetAll()
         {
             List<RoomViewModel> Rooms = new List<RoomViewModel>();
@@ -34,6 +43,10 @@ namespace RestApp.Repository
             return Rooms;
         }
 
+		/// <summary>
+		/// Get the room with specified id.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
         public RoomViewModel Get(Guid id)
         {
             return context.Rooms.Where(x => x.Id == id)
@@ -47,6 +60,10 @@ namespace RestApp.Repository
                 }).SingleOrDefault();
         }
 
+		/// <summary>
+		/// Add the specified room.
+		/// </summary>
+		/// <param name="model">Model.</param>
         public void Add(RoomViewModel model)
         {
             Rooms room = new Rooms()
@@ -62,6 +79,11 @@ namespace RestApp.Repository
         }
 
         // nie wiem czy potrzebne
+		/// <summary>
+		/// Update the room with specified id.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
+		/// <param name="model">Model.</param>
         public void Update(Guid id, RoomViewModel model)
         {
             var room = context.Rooms.Single(x => x.Id == id);
@@ -72,6 +94,12 @@ namespace RestApp.Repository
             context.SubmitChanges();
         }
 
+		/// <summary>
+		/// Changes the status of specified room.
+		/// </summary>
+		/// <returns>The status.</returns>
+		/// <param name="id">Identifier.</param>
+		/// <param name="active">If set to <c>true</c> active.</param>
         public Rooms ChangeStatus(Guid id, bool active)
         {
             var room = context.Rooms.Single(x => x.Id == id);

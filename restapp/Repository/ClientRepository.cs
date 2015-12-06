@@ -6,17 +6,30 @@ using RestApp.Models;
 
 namespace RestApp.Repository
 {
+	/// <summary>
+	/// Client repository class.
+	/// </summary>
     public class ClientRepository
     {
+		/// <summary>
+		/// The context.
+		/// </summary>
         private HotelSPADataContext _context;
         private TreatmentRepository _treatmentRepository;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RestApp.Repository.ClientRepository"/> class.
+		/// </summary>
         public ClientRepository()
         {
             _context = new HotelSPADataContext();
             _treatmentRepository = new TreatmentRepository();
         }
 
+		/// <summary>
+		/// Gets all clients.
+		/// </summary>
+		/// <returns>All clients.</returns>
         public IEnumerable<ClientViewModel> GetAll()
         {
             List<ClientViewModel> clientsList = new List<ClientViewModel>();
@@ -41,7 +54,11 @@ namespace RestApp.Repository
             }
             return clientsList;
         }
-
+			
+		/// <summary>
+		/// Get the client with specified id.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
         public ClientViewModel Get(Guid id)
         {
             return _context.Clients.Where(x => x.Id == id)
@@ -59,6 +76,11 @@ namespace RestApp.Repository
                 }).SingleOrDefault();
         }
 
+		/// <summary>
+		/// Get the treatments history of a client with specified id.
+		/// </summary>
+		/// <returns>The treatments history.</returns>
+		/// <param name="id">Identifier.</param>
         public IEnumerable<ClientHistoryViewModel> GetTreatmentsHistory(Guid id)
         {
             return _context.TreatmentsHistories.Where(x => x.Client_id == id)
@@ -71,6 +93,11 @@ namespace RestApp.Repository
                 });
         }
 
+
+		/// <summary>
+		/// Add the specified client.
+		/// </summary>
+		/// <param name="model">Model.</param>
         public void Add(ClientViewModel model)
         {
             Clients client = new Clients()
@@ -89,6 +116,11 @@ namespace RestApp.Repository
             _context.SubmitChanges();
         }
 
+
+		/// <summary>
+		/// Update the client with specified model.
+		/// </summary>
+		/// <param name="model">Model.</param>
         public Clients Update(ClientViewModel model)
         {            
             var client = _context.Clients.Single(x => x.Id == model.Id);
@@ -105,6 +137,10 @@ namespace RestApp.Repository
             return client;
         }
 
+		/// <summary>
+		/// Delete the client with specified id.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
         public Clients Delete(Guid id)
         {
             var client = _context.Clients.Single(x => x.Id == id);

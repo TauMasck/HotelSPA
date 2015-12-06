@@ -9,21 +9,34 @@ using System.Web.Http;
 
 namespace RestApp.Controllers
 {
+	/// <summary>
+	/// Rooms controller class.
+	/// </summary>
     public class RoomsController : ApiController
     {
         private RoomRepository repository;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RestApp.Controllers.RoomsController"/> class.
+		/// </summary>
         public RoomsController() {
             this.repository = new RoomRepository();
         }
 
         // GET rooms
+		/// <summary>
+		/// Get all rooms.
+		/// </summary>
         public IEnumerable<RoomViewModel> Get()
         {
             return this.repository.GetAll();
         }
 
         // POST rooms 
+		/// <summary>
+		/// Post the room according to specified model.
+		/// </summary>
+		/// <param name="model">Model.</param>
         public HttpResponseMessage Post(RoomViewModel model)
         {
             if (ModelState.IsValid)
@@ -71,6 +84,11 @@ namespace RestApp.Controllers
 
 
         // PUT clients/{id}
+		/// <summary>
+		/// Put the room with specified id and changes its status.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
+		/// <param name="active">If set to <c>true</c> active.</param>
         public HttpResponseMessage Put(Guid id, bool active)
         {
             if (ModelState.IsValid)
