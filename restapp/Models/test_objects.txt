@@ -1,4 +1,6 @@
-﻿{
+﻿Content-Type: application/json
+
+{
     "NameSurname": "Jacek Placek",
     "IdNumber": "I8ANW0",
     "Company": "IBM",

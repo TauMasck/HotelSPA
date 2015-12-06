@@ -110,39 +110,62 @@ namespace RestApp.Controllers
 
         #region PUT
         // PUT clients/{id}
-        public Clients Put(Guid id, ClientViewModel model)
+        public ClientViewModel Put(Guid id, ClientViewModel model)
         {
+            CheckIfClientExist(id);
+
             model.Id = id;
-
-            var existingClient = _repository.Get(model.Id);
-            if (existingClient == null)
-            {
-                throw new HttpResponseException(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.NotFound,
-                    Content = new StringContent("Client not found")
-                });
-            }
-
             return _repository.Update(model);
         }
 
 
-        [HttpPost, ActionName("donQuest")]
-        public Clients Put(Guid id, bool done)
+        [HttpPut, ActionName("putQuest")]
+        public Clients PutQuest(Guid id, ClientViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var client = _repository.Get(id);
-                if (client == null)
+                var client = CheckIfClientExist(id);
+
+                try
+                {
+                    client.Questionnaire = model.Questionnaire;
+                }
+                catch (NullReferenceException)
                 {
                     throw new HttpResponseException(new HttpResponseMessage
                     {
-                        StatusCode = HttpStatusCode.NotFound,
-                        Content = new StringContent("Client not found")
+                        StatusCode = HttpStatusCode.BadRequest,
+                        Content = new StringContent("Can't change when option 'Questionnaire' is empty.")
                     });
                 }
-                return _repository.ChangeQuestStatus(id, done);
+                return _repository.ChangeQuestStatus(id, model.Questionnaire);
+            }
+            else
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+        }
+
+        [HttpPut, ActionName("putVeg")]
+        public ClientViewModel PutVeg(Guid id, ClientViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var client = CheckIfClientExist(id);
+
+                try
+                {
+                    client.Vegetarian = model.Vegetarian;
+                }
+                catch (NullReferenceException) 
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.BadRequest,
+                        Content = new StringContent("Can't change when option 'Vegetarian' is empty.")
+                    });
+                }
+                return _repository.Update(client);
             }
             else
             {
@@ -173,6 +196,19 @@ namespace RestApp.Controllers
             }
         }
         #endregion
-        
+
+        private ClientViewModel CheckIfClientExist(Guid id)
+        {
+            var client = _repository.Get(id);
+            if (client == null)
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("Client not found.")
+                });
+            }
+            return client;
+        }
     }
 }

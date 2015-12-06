@@ -82,10 +82,10 @@ namespace RestApp.Repository
                 Id_number = model.IdNumber,
                 Company = model.Company == "" ? null : model.Company,
                 Room_number = model.RoomNumber,
-                Is_here = model.IsHere ? 0 : 1,
-                Vegetarian = model.Vegetarian ? 0 : 1,
-                Questionnaire = model.Questionnaire ? 0 : 1,
-                Invoice = model.Invoice ? 0 : 1,
+                Is_here = model.IsHere ? 1 : 0,
+                Vegetarian = model.Vegetarian ? 1 : 0,
+                Questionnaire = model.Questionnaire ? 1 : 0,
+                Invoice = model.Invoice ? 1 : 0,
             };
 
             _context.Clients.InsertOnSubmit(client);
@@ -96,26 +96,26 @@ namespace RestApp.Repository
             return model;
         }
 
-        public Clients Update(ClientViewModel model)
+        public ClientViewModel Update(ClientViewModel model)
         {            
             var client = _context.Clients.Single(x => x.Id == model.Id);
             client.Name_surname = model.NameSurname;
             client.Id_number = model.IdNumber;
             client.Company = model.Company == "" ? null : model.Company;
             client.Room_number = model.RoomNumber;
-            client.Is_here = model.IsHere ? 0 : 1;
-            client.Vegetarian = model.Vegetarian ? 0 : 1;
-            client.Questionnaire = model.Questionnaire ? 0 : 1;
-            client.Invoice = model.Invoice ? 0 : 1;
+            client.Is_here = model.IsHere ? 1 : 0;
+            client.Vegetarian = model.Vegetarian ? 1 : 0;
+            client.Questionnaire = model.Questionnaire ? 1 : 0;
+            client.Invoice = model.Invoice ? 1 : 0;
             _context.SubmitChanges();
 
-            return client;
+            return model;
         }
 
         public Clients ChangeQuestStatus(Guid id, bool status)
         {
             var client = _context.Clients.Single(x => x.Id == id);
-            client.Questionnaire = status ? 0 : 1;
+            client.Questionnaire = status ? 1 : 0;
             _context.SubmitChanges();
             return client;
         }
