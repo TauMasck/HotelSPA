@@ -1,0 +1,9 @@
+﻿{
+    "NameSurname": "Jacek Placek",
+    "IdNumber": "I8ANW0",
+    "Company": "IBM",
+    "IsHere": false,
+    "Vegetarian": false,
+    "Questionnaire": false,
+    "Invoice": true
+}

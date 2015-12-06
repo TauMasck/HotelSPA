@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using RestApp.Models;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace RestApp.Repository
 {
@@ -71,10 +73,11 @@ namespace RestApp.Repository
                 });
         }
 
-        public void Add(ClientViewModel model)
+        public ClientViewModel Add(ClientViewModel model)
         {
             Clients client = new Clients()
             {
+                Id = GetNewId(),
                 Name_surname = model.NameSurname,
                 Id_number = model.IdNumber,
                 Company = model.Company == "" ? null : model.Company,
@@ -87,6 +90,10 @@ namespace RestApp.Repository
 
             _context.Clients.InsertOnSubmit(client);
             _context.SubmitChanges();
+
+            model.Id = client.Id;
+
+            return model;
         }
 
         public Clients Update(ClientViewModel model)
@@ -111,6 +118,17 @@ namespace RestApp.Repository
             _context.Clients.DeleteOnSubmit(client);
             _context.SubmitChanges();
             return client;
+        }
+
+        private Guid GetNewId()
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["HotelConnectionString"].ConnectionString);
+            var query = "select newid()";
+            conn.Open();
+            SqlCommand com = new SqlCommand(query, conn);
+            var guid = new Guid(com.ExecuteScalar().ToString());
+            conn.Close();
+            return guid;
         }
 
     }

@@ -81,9 +81,9 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repository.Add(model);
+                var client = _repository.Add(model);
 
-                var response = Request.CreateResponse<ClientViewModel>(HttpStatusCode.Created, model);
+                var response = Request.CreateResponse<ClientViewModel>(HttpStatusCode.Created, client);
 
                 string uri = Url.Link("DefaultApi", new { id = model.Id });
                 response.Headers.Location = new Uri(uri);

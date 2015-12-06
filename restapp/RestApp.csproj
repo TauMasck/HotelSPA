@@ -245,6 +245,7 @@
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Models\Inserts.sql" />
     <Content Include="Models\REST.sql" />
+    <Content Include="Models\test_objects.txt" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
