@@ -16,10 +16,16 @@ using System.ServiceModel.Web;
 
 namespace RestApp.Controllers
 {
+	/// <summary>
+	/// Clients controller class.
+	/// </summary>
     public class ClientsController : ApiController
     {
         private ClientRepository _repository;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RestApp.Controllers.ClientsController"/> class.
+		/// </summary>
         public ClientsController() {
             this._repository = new ClientRepository();
         }
@@ -27,6 +33,9 @@ namespace RestApp.Controllers
         #region GET
         // GET clients
         // http://localhost:55534/api/clients
+		/// <summary>
+		/// Get all clients.
+		/// </summary>
         [HttpGet]
         public IEnumerable<ClientViewModel> Get()
         {
@@ -35,6 +44,10 @@ namespace RestApp.Controllers
 
         // GET clients/{id}
         // http://localhost:55534/api/Clients/{id}/getbyid
+		/// <summary>
+		/// Get the client with specified id.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
         [HttpGet, ActionName("getById")]
         public ClientViewModel Get(Guid id)
         {
@@ -56,6 +69,11 @@ namespace RestApp.Controllers
 
         //http://localhost:55534/api/Clients/{id}/gettreatments
         //[WebInvoke(Method = "GET", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+		/// <summary>
+		/// Gets the treatments of specified client.
+		/// </summary>
+		/// <returns>The treatments.</returns>
+		/// <param name="id">Identifier.</param>
         [ActionName("getTreatments")]
         public IEnumerable<ClientHistoryViewModel> GetTreatments(Guid id) 
         {
@@ -77,6 +95,10 @@ namespace RestApp.Controllers
 
         #region POST
         // POST clients 
+		/// <summary>
+		/// Post the client according to specified model.
+		/// </summary>
+		/// <param name="model">Model.</param>
         public HttpResponseMessage Post(ClientViewModel model)
         {
             if (ModelState.IsValid)
@@ -110,6 +132,11 @@ namespace RestApp.Controllers
 
         #region PUT
         // PUT clients/{id}
+		/// <summary>
+		/// Put the client with specified id and model.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
+		/// <param name="model">Model.</param>
         public ClientViewModel Put(Guid id, ClientViewModel model)
         {
             CheckIfClientExist(id);
@@ -176,6 +203,10 @@ namespace RestApp.Controllers
 
         #region DELETE
         // DELETE clients/{id}
+		/// <summary>
+		/// Delete the client with specified id.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
         public HttpResponseMessage Delete(Guid id)
         {
             if (ModelState.IsValid)

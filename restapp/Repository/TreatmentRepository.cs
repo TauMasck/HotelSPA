@@ -6,15 +6,25 @@ using System.Web;
 
 namespace RestApp.Repository
 {
+	/// <summary>
+	/// Treatment repository class.
+	/// </summary>
     public class TreatmentRepository : ViewModel
     {
         private HotelSPADataContext context;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RestApp.Repository.TreatmentRepository"/> class.
+		/// </summary>
         public TreatmentRepository()
         {
             context = new HotelSPADataContext();
         }
 
+		/// <summary>
+		/// Gets all treatments.
+		/// </summary>
+		/// <returns>All treatments.</returns>
         public IEnumerable<TreatmentViewModel> GetAll()
         {
             List<TreatmentViewModel> Treatments = new List<TreatmentViewModel>();
@@ -35,6 +45,10 @@ namespace RestApp.Repository
             return Treatments;
         }
 
+		/// <summary>
+		/// Get the treatment with specified id.
+		/// </summary>
+		/// <param name="id">Treatment identifier.</param>
         public TreatmentViewModel Get(Guid id)
         {
             return context.Treatments.Where(x => x.Id == id)
@@ -49,6 +63,10 @@ namespace RestApp.Repository
                 }).SingleOrDefault();
         }
 
+		/// <summary>
+		/// Add the specified model.
+		/// </summary>
+		/// <param name="model">Model.</param>
         public TreatmentViewModel Add(TreatmentViewModel model)
         {
             Treatments treatment = new Treatments()

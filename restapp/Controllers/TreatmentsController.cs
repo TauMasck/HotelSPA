@@ -9,16 +9,25 @@ using System.Web.Http;
 
 namespace RestApp.Controllers
 {
+	/// <summary>
+	/// Treatments controller class.
+	/// </summary>
     public class TreatmentsController : ApiController
     {
         private TreatmentRepository _repository;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RestApp.Controllers.TreatmentsController"/> class.
+		/// </summary>
         public TreatmentsController() {
             _repository = new TreatmentRepository();
         }
 
         #region GET
         // GET treatments
+		/// <summary>
+		/// Get all treatments.
+		/// </summary>
         public IEnumerable<TreatmentViewModel> Get()
         {
             return _repository.GetAll();
@@ -27,6 +36,10 @@ namespace RestApp.Controllers
 
         #region POST
         // POST treatments 
+		/// <summary>
+		/// Post the treatment according to specified model.
+		/// </summary>
+		/// <param name="model">Model.</param>
         public HttpResponseMessage Post(TreatmentViewModel model)
         {
             if (ModelState.IsValid)
