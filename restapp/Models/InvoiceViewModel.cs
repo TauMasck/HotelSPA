@@ -8,6 +8,7 @@ namespace RestApp.Models
     public class InvoiceViewModel
     {
         public double Price { get; set; }
-        public string ClientName { get; set; }
+        public string ClientNameSurname { get; set; }
+        public string Company { get; set; }
     }
 }

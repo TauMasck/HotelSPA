@@ -1,5 +1,7 @@
 ﻿Content-Type: application/json
 
+Klient podaje swoje imię, nazwisko … (Recepcjonista dodaje go)
+
 {
     "NameSurname": "Jacek Placek",
     "IdNumber": "I8ANW0",
@@ -10,6 +12,22 @@
     "Invoice": true
 }
 
+Klient podaje, czy preferuje potrawy wegetariańskie, czy mięsne
+
+
+Recepcjonista kwateruje lub wykwateruje klienta z hotelu
+<TODO>
+
+Recepcjonista sprawdza, czy klient wypełnił ankietę
+
+
+Recepcjonista wydaje klientowi fakturę
+http://localhost:55534/api/clients/c342bc02-1c6d-495e-bb9f-01e95af3fda8/getinvoice
+
+Recepcjonista usuwa nowych klientów
+
+
+Recepcjonista dodaje nowe zabiegi do oferty hotelu
 
 {
   "Name": "Example treatment",
@@ -19,12 +37,15 @@
 }
 
 
+Recepcjonista oznacza zabieg jako wykonany dla danego klienta	
 http://localhost:55534/api/clients/c342bc02-1c6d-495e-bb9f-01e95af3fda8/putDoneTreatment
 {
 	"Id": "6cf5d6d8-f929-4c29-bae3-dad7ab12ec67"
 }
 
+Klient zapisuje się na wybrane zabiegi	
 http://localhost:55534/api/clients/513444a0-63d6-4a7c-b5f9-846b341dbb67/getTreatments
+http://localhost:55534/api/treatments
 http://localhost:55534/api/clients/513444a0-63d6-4a7c-b5f9-846b341dbb67/putNewTreatments
 [{ "Id": "c74a9e9e-577b-4c07-9659-4a1122d36437"},
 { "Id": "9ece5bd5-3b7c-4677-93c1-605a7f313fe7"}]

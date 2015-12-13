@@ -101,6 +101,24 @@ namespace RestApp.Controllers
             return _repository.GetTreatmentsHistory(id);//"udało się pobrać";
         }
 
+        [ActionName("getInvoice")]
+        public InvoiceViewModel GetInvoice(Guid id)
+        {
+            var client = CheckIfClientExists(id);
+
+            if (client.RoomNumber == null)
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("Client should have signed room.")
+                });
+            }
+
+            return _repository.GetInvoice(client);
+        }
+
+
 
         #endregion
 

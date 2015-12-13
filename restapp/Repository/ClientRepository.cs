@@ -95,6 +95,28 @@ namespace RestApp.Repository
                 });
         }
 
+        public InvoiceViewModel GetInvoice(ClientViewModel client)
+        {
+            var roomId = (Guid)client.RoomNumber;
+            var roomPrice = _context.Rooms.First(x => x.Id == roomId).Price;
+
+            var treatmentsHistory = _context.TreatmentsHistories.Where(x => x.Client_id == client.Id).ToList();
+
+            double treatmentsPrice = 0;
+            foreach(var th in treatmentsHistory){
+                var treatmentPrice = _context.Treatments.First(x => x.Id == th.Treatment_id).Price;
+                treatmentsPrice += treatmentPrice;
+            }
+
+            var price = roomPrice + treatmentsPrice;
+
+            return new InvoiceViewModel { 
+                ClientNameSurname = client.NameSurname,
+                Company = client.Company,
+                Price = price
+            };
+        }
+
 		/// <summary>
 		/// Add the specified client.
 		/// </summary>
