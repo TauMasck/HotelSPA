@@ -11,7 +11,7 @@ namespace RestApp.Repository
 	/// <summary>
 	/// Client repository class.
 	/// </summary>
-    public class ClientRepository : ViewModel
+    public class ClientRepository : MainRepository
     {
 		/// <summary>
 		/// The context.
@@ -148,6 +148,21 @@ namespace RestApp.Repository
             client.Questionnaire = status ? 1 : 0;
             _context.SubmitChanges();
             return client;
+        }
+
+        public ClientHistoryViewModel ChangeTreatmentStatus(Guid clientId, Guid treatId)
+        {
+            var treat = _context.TreatmentsHistories.First(x => x.Client_id == clientId && x.Treatment_id == treatId);
+
+            treat.Is_done = 1;
+            _context.SubmitChanges();
+
+            return new ClientHistoryViewModel() {
+                ClientId = treat.Client_id,
+                Treatment = _treatmentRepository.Get(treat.Treatment_id),
+                ThisStay = treat.This_stay == 0 ? false : true,
+                IsDone = treat.Is_done == 0 ? false : true
+            };
         }
 
 		/// <summary>

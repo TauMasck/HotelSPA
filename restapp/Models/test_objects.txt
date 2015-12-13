@@ -17,3 +17,9 @@
   "Duration": 60,
   "Description": "This is description of new treatment"
 }
+
+
+http://localhost:55534/api/clients/c342bc02-1c6d-495e-bb9f-01e95af3fda8/putDoneTreatment
+{
+	"Id": "6cf5d6d8-f929-4c29-bae3-dad7ab12ec67"
+}

@@ -5,9 +5,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace RestApp.Models
+namespace RestApp.Repository
 {
-    public class ViewModel
+    public class MainRepository
     {
         protected Guid GetNewId()
         {

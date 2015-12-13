@@ -1,4 +1,5 @@
 ﻿using RestApp.Models;
+using RestApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace RestApp.Repository
 	/// <summary>
 	/// Treatment repository class.
 	/// </summary>
-    public class TreatmentRepository : ViewModel
+    public class TreatmentRepository : MainRepository
     {
         private HotelSPADataContext context;
 

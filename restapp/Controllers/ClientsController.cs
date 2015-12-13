@@ -51,19 +51,30 @@ namespace RestApp.Controllers
         [HttpGet, ActionName("getById")]
         public ClientViewModel Get(Guid id)
         {
-            ClientViewModel client = _repository.Get(id);
- 
-            if (client == null)
+            if (ModelState.IsValid)
             {
-                throw new HttpResponseException(new HttpResponseMessage
+                ClientViewModel client = _repository.Get(id);
+ 
+                if (client == null)
                 {
-                    StatusCode = HttpStatusCode.NotFound,
-                    Content = new StringContent("Client not found")
-                });
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.NotFound,
+                        Content = new StringContent("Client not found")
+                    });
+                }
+                else
+                {
+                    return client;
+                }
             }
             else
             {
-                return client;
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Content = new StringContent("Model is not valid")
+                });
             }
         }
 
@@ -139,7 +150,7 @@ namespace RestApp.Controllers
 		/// <param name="model">Model.</param>
         public ClientViewModel Put(Guid id, ClientViewModel model)
         {
-            CheckIfClientExist(id);
+            CheckIfClientExists(id);
 
             model.Id = id;
             return _repository.Update(model);
@@ -151,7 +162,7 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var client = CheckIfClientExist(id);
+                var client = CheckIfClientExists(id);
 
                 try
                 {
@@ -178,7 +189,7 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var client = CheckIfClientExist(id);
+                var client = CheckIfClientExists(id);
 
                 try
                 {
@@ -193,6 +204,31 @@ namespace RestApp.Controllers
                     });
                 }
                 return _repository.Update(client);
+            }
+            else
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+        }
+
+        [HttpPut, ActionName("putDoneTreatment")]
+        public ClientHistoryViewModel PutDoneTreatment(Guid id, TreatmentViewModel treat)
+        {
+            if (ModelState.IsValid)
+            {
+                var client = CheckIfClientExists(id);
+                var treatment = RestApp.Controllers.TreatmentsController.CheckIfTreatExists(treat.Id);
+
+                if (treat.Id == null)
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.BadRequest,
+                        Content = new StringContent("Can't change when id of treatment is empty.")
+                    });
+                }
+
+                return _repository.ChangeTreatmentStatus(id, treat.Id);
             }
             else
             {
@@ -228,10 +264,13 @@ namespace RestApp.Controllers
         }
         #endregion
 
-        private ClientViewModel CheckIfClientExist(Guid id)
+        private ClientViewModel CheckIfClientExists(Guid id)
         {
-            var client = _repository.Get(id);
-            if (client == null)
+            ClientViewModel client = null;
+            try {
+                client = _repository.Get(id);
+            }
+            catch
             {
                 throw new HttpResponseException(new HttpResponseMessage
                 {

@@ -14,7 +14,7 @@ namespace RestApp.Controllers
 	/// </summary>
     public class TreatmentsController : ApiController
     {
-        private TreatmentRepository _repository;
+        private static TreatmentRepository _repository;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RestApp.Controllers.TreatmentsController"/> class.
@@ -121,5 +121,21 @@ namespace RestApp.Controllers
         }
         */
         #endregion
+
+        public static TreatmentViewModel CheckIfTreatExists(Guid id)
+        {
+            TreatmentViewModel treat = null;
+            try {
+                treat = _repository.Get(id);
+            }
+            catch {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("Treatment not found.")
+                });
+            }
+            return treat;
+        }
     }
 }
