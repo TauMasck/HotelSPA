@@ -23,3 +23,8 @@ http://localhost:55534/api/clients/c342bc02-1c6d-495e-bb9f-01e95af3fda8/putDoneT
 {
 	"Id": "6cf5d6d8-f929-4c29-bae3-dad7ab12ec67"
 }
+
+http://localhost:55534/api/clients/513444a0-63d6-4a7c-b5f9-846b341dbb67/getTreatments
+http://localhost:55534/api/clients/513444a0-63d6-4a7c-b5f9-846b341dbb67/putNewTreatments
+[{ "Id": "c74a9e9e-577b-4c07-9659-4a1122d36437"},
+{ "Id": "9ece5bd5-3b7c-4677-93c1-605a7f313fe7"}]

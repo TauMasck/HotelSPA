@@ -165,6 +165,28 @@ namespace RestApp.Repository
             };
         }
 
+
+        public IEnumerable<ClientHistoryViewModel> AssignTreatments(Guid clientId, IEnumerable<TreatmentViewModel> treats)
+        {
+            List<TreatmentsHistory> treatsHist = new List<TreatmentsHistory>();
+            foreach (var t in treats)
+            {
+                var treat = new TreatmentsHistory
+                {
+                    Id = GetNewId(),
+                    Client_id = clientId,
+                    Treatment_id = t.Id,
+                    This_stay = 1,
+                    Is_done = 0
+                };
+                treatsHist.Add(treat);
+            }
+            _context.TreatmentsHistories.InsertAllOnSubmit(treatsHist);
+            _context.SubmitChanges();
+
+            return GetTreatmentsHistory(clientId);
+        }
+
 		/// <summary>
 		/// Delete the client with specified id.
 		/// </summary>

@@ -235,6 +235,34 @@ namespace RestApp.Controllers
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
         }
+
+        [HttpPut, ActionName("putNewTreatments")]
+        public IEnumerable<ClientHistoryViewModel> PutNewTreatments(Guid id, IEnumerable<TreatmentViewModel> treats)
+        {
+            if (ModelState.IsValid)
+            {
+                var client = CheckIfClientExists(id);
+                
+                if (treats == null)
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.BadRequest,
+                        Content = new StringContent("Can't change when id of treatment is empty.")
+                    });
+                }
+
+                foreach(var t in treats){
+                    var treat = RestApp.Controllers.TreatmentsController.CheckIfTreatExists(t.Id);                
+                }
+
+                return _repository.AssignTreatments(id, treats);
+            }
+            else
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+        }
         #endregion
 
         #region DELETE
