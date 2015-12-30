@@ -27,7 +27,7 @@ namespace RestApp.Controllers
 		/// Initializes a new instance of the <see cref="RestApp.Controllers.ClientsController"/> class.
 		/// </summary>
         public ClientsController() {
-            this._repository = new ClientRepository();
+            _repository = new ClientRepository();
         }
 
         #region GET

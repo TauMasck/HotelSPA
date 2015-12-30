@@ -82,11 +82,10 @@ namespace RestApp.Repository
 		/// <summary>
 		/// Update the room with specified id.
 		/// </summary>
-		/// <param name="id">Identifier.</param>
 		/// <param name="model">Model.</param>
-        public void Update(Guid id, RoomViewModel model)
+        public void Update(RoomViewModel model)
         {
-            var room = context.Rooms.Single(x => x.Id == id);
+            var room = context.Rooms.Single(x => x.Id == model.Id);
             room.Size = model.Size;
             room.Available = model.Available ? 1 : 0;
             room.How_many_persons = model.HowManyPerson;

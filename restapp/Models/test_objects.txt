@@ -49,3 +49,8 @@ http://localhost:55534/api/treatments
 http://localhost:55534/api/clients/513444a0-63d6-4a7c-b5f9-846b341dbb67/putNewTreatments
 [{ "Id": "c74a9e9e-577b-4c07-9659-4a1122d36437"},
 { "Id": "9ece5bd5-3b7c-4677-93c1-605a7f313fe7"}]
+//przetestować obsluge dodawania powtórzen
+
+użyć rest commands
+
+//przetestować kwaterowanie klienta do pokoju
