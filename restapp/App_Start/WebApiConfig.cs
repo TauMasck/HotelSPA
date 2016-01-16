@@ -2,18 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Web;
 using System.Web.Http;
-using System.Web.Http.Routing;
 
-namespace RestApp
+namespace RestApp.App_Start
 {
-    public static class WebApiConfig
+    public class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
-            //config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; 
-            //((DefaultContractResolver)config.Formatters.JsonFormatter.SerializerSettings.ContractResolver).IgnoreSerializableAttribute = true;
+
+            config.MapHttpAttributeRoutes();
+
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             var json = config.Formatters.JsonFormatter;
             json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
@@ -24,7 +27,6 @@ namespace RestApp
                 routeTemplate: "api/{controller}/{id}/{action}",
                 defaults: new { id = RouteParameter.Optional, action = RouteParameter.Optional }
             );
-
         }
     }
 }

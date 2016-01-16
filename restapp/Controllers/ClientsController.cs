@@ -6,10 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Http;
-using System.ServiceModel;
-using System.ServiceModel.Web;
 
 // dokumentacja
 // https://msdn.microsoft.com/pl-pl/library/b2s063f7(v=vs.120).aspx

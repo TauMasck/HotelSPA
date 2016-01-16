@@ -11,13 +11,13 @@ namespace RestApp.Repository
 	/// </summary>
     public class RoomRepository
     {
-        private HotelSPADataContext context;
+        private HotelEntities context;
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RestApp.Repository.RoomRepository"/> class.
 		/// </summary>
         public RoomRepository()
         {
-            context = new HotelSPADataContext();
+            context = new HotelEntities();
         }
 
 		/// <summary>
@@ -74,8 +74,8 @@ namespace RestApp.Repository
                 Price = model.Price
             };
 
-            context.Rooms.InsertOnSubmit(room);
-            context.SubmitChanges();
+            context.Rooms.Add(room);
+            context.SaveChanges();
         }
 
         // nie wiem czy potrzebne
@@ -90,7 +90,7 @@ namespace RestApp.Repository
             room.Available = model.Available ? 1 : 0;
             room.How_many_persons = model.HowManyPerson;
             room.Price = model.Price;
-            context.SubmitChanges();
+            context.SaveChanges();
         }
 
 		/// <summary>
@@ -103,7 +103,7 @@ namespace RestApp.Repository
         {
             var room = context.Rooms.Single(x => x.Id == id);
             room.Available = active ? 1 : 0;
-            context.SubmitChanges();
+            context.SaveChanges();
             return room;
         }
     }

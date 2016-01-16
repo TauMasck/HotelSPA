@@ -16,7 +16,7 @@ namespace RestApp.Repository
 		/// <summary>
 		/// The context.
 		/// </summary>
-        private HotelSPADataContext _context;
+        private HotelEntities _context;
         private TreatmentRepository _treatmentRepository;
 
 		/// <summary>
@@ -24,7 +24,7 @@ namespace RestApp.Repository
 		/// </summary>
         public ClientRepository()
         {
-            _context = new HotelSPADataContext();
+            _context = new HotelEntities();
             _treatmentRepository = new TreatmentRepository();
         }
 
@@ -85,7 +85,7 @@ namespace RestApp.Repository
 		/// <param name="id">Identifier.</param>
         public IEnumerable<ClientHistoryViewModel> GetTreatmentsHistory(Guid id)
         {
-            return _context.TreatmentsHistories.Where(x => x.Client_id == id)
+            return _context.TreatmentsHistory.Where(x => x.Client_id == id)
                 .Select(x => new ClientHistoryViewModel()
                 {
                     ClientId = x.Client_id,
@@ -100,7 +100,7 @@ namespace RestApp.Repository
             var roomId = (Guid)client.RoomNumber;
             var roomPrice = _context.Rooms.First(x => x.Id == roomId).Price;
 
-            var treatmentsHistory = _context.TreatmentsHistories.Where(x => x.Client_id == client.Id).ToList();
+            var treatmentsHistory = _context.TreatmentsHistory.Where(x => x.Client_id == client.Id).ToList();
 
             double treatmentsPrice = 0;
             foreach(var th in treatmentsHistory){
@@ -136,8 +136,8 @@ namespace RestApp.Repository
                 Invoice = model.Invoice ? 1 : 0,
             };
 
-            _context.Clients.InsertOnSubmit(client);
-            _context.SubmitChanges();
+            _context.Clients.Add(client);
+            _context.SaveChanges();
 
             model.Id = client.Id;
 
@@ -159,7 +159,7 @@ namespace RestApp.Repository
             client.Vegetarian = model.Vegetarian ? 1 : 0;
             client.Questionnaire = model.Questionnaire ? 1 : 0;
             client.Invoice = model.Invoice ? 1 : 0;
-            _context.SubmitChanges();
+            _context.SaveChanges();
 
             return model;
         }
@@ -168,16 +168,16 @@ namespace RestApp.Repository
         {
             var client = _context.Clients.Single(x => x.Id == id);
             client.Questionnaire = status ? 1 : 0;
-            _context.SubmitChanges();
+            _context.SaveChanges();
             return client;
         }
 
         public ClientHistoryViewModel ChangeTreatmentStatus(Guid clientId, Guid treatId)
         {
-            var treat = _context.TreatmentsHistories.First(x => x.Client_id == clientId && x.Treatment_id == treatId);
+            var treat = _context.TreatmentsHistory.First(x => x.Client_id == clientId && x.Treatment_id == treatId);
 
             treat.Is_done = 1;
-            _context.SubmitChanges();
+            _context.SaveChanges();
 
             return new ClientHistoryViewModel() {
                 ClientId = treat.Client_id,
@@ -201,10 +201,9 @@ namespace RestApp.Repository
                     This_stay = 1,
                     Is_done = 0
                 };
-                treatsHist.Add(treat);
+                _context.TreatmentsHistory.Add(treat);
             }
-            _context.TreatmentsHistories.InsertAllOnSubmit(treatsHist);
-            _context.SubmitChanges();
+            _context.SaveChanges();
 
             return GetTreatmentsHistory(clientId);
         }
@@ -216,8 +215,8 @@ namespace RestApp.Repository
         public Clients Delete(Guid id)
         {
             var client = _context.Clients.Single(x => x.Id == id);
-            _context.Clients.DeleteOnSubmit(client);
-            _context.SubmitChanges();
+            _context.Clients.Remove(client);
+            _context.SaveChanges();
             return client;
         }
     }

@@ -12,14 +12,14 @@ namespace RestApp.Repository
 	/// </summary>
     public class TreatmentRepository : MainRepository
     {
-        private HotelSPADataContext context;
+        private HotelEntities context;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RestApp.Repository.TreatmentRepository"/> class.
 		/// </summary>
         public TreatmentRepository()
         {
-            context = new HotelSPADataContext();
+            context = new HotelEntities();
         }
 
 		/// <summary>
@@ -80,8 +80,8 @@ namespace RestApp.Repository
                 Price = model.Price
             };
 
-            context.Treatments.InsertOnSubmit(treatment);
-            context.SubmitChanges();
+            context.Treatments.Add(treatment);
+            context.SaveChanges();
 
             model.Id = treatment.Id;
             return model;

@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HotelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name_surname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Id_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Company" Type="varchar" MaxLength="100" />
+          <Property Name="Room_number" Type="uniqueidentifier" />
+          <Property Name="Is_here" Type="int" Nullable="false" />
+          <Property Name="Vegetarian" Type="int" Nullable="false" />
+          <Property Name="Questionnaire" Type="int" Nullable="false" />
+          <Property Name="Invoice" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="How_many_persons" Type="int" Nullable="false" />
+          <Property Name="Size" Type="float" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Available" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Treatments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TreatmentsHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Client_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Treatment_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="This_stay" Type="int" Nullable="false" />
+          <Property Name="Is_done" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_client">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TreatmentsHistory" Type="Self.TreatmentsHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreatmentsHistory">
+              <PropertyRef Name="Client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_room">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+          <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="Room_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_treatment">
+          <End Role="Treatments" Type="Self.Treatments" Multiplicity="1" />
+          <End Role="TreatmentsHistory" Type="Self.TreatmentsHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreatmentsHistory">
+              <PropertyRef Name="Treatment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelModelStoreContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Treatments" EntityType="Self.Treatments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TreatmentsHistory" EntityType="Self.TreatmentsHistory" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_client" Association="Self.FK_client">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="TreatmentsHistory" EntitySet="TreatmentsHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_room" Association="Self.FK_room">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_treatment" Association="Self.FK_treatment">
+            <End Role="Treatments" EntitySet="Treatments" />
+            <End Role="TreatmentsHistory" EntitySet="TreatmentsHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name_surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Room_number" Type="Guid" />
+          <Property Name="Is_here" Type="Int32" Nullable="false" />
+          <Property Name="Vegetarian" Type="Int32" Nullable="false" />
+          <Property Name="Questionnaire" Type="Int32" Nullable="false" />
+          <Property Name="Invoice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TreatmentsHistory" Relationship="Self.FK_client" FromRole="Clients" ToRole="TreatmentsHistory" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_room" FromRole="Clients" ToRole="Rooms" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="How_many_persons" Type="Int32" Nullable="false" />
+          <Property Name="Size" Type="Double" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Available" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK_room" FromRole="Rooms" ToRole="Clients" />
+        </EntityType>
+        <EntityType Name="Treatments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TreatmentsHistory" Relationship="Self.FK_treatment" FromRole="Treatments" ToRole="TreatmentsHistory" />
+        </EntityType>
+        <EntityType Name="TreatmentsHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Client_id" Type="Guid" Nullable="false" />
+          <Property Name="Treatment_id" Type="Guid" Nullable="false" />
+          <Property Name="This_stay" Type="Int32" Nullable="false" />
+          <Property Name="Is_done" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK_client" FromRole="TreatmentsHistory" ToRole="Clients" />
+          <NavigationProperty Name="Treatments" Relationship="Self.FK_treatment" FromRole="TreatmentsHistory" ToRole="Treatments" />
+        </EntityType>
+        <Association Name="FK_client">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TreatmentsHistory" Type="Self.TreatmentsHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreatmentsHistory">
+              <PropertyRef Name="Client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_room">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+          <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="Room_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_treatment">
+          <End Role="Treatments" Type="Self.Treatments" Multiplicity="1" />
+          <End Role="TreatmentsHistory" Type="Self.TreatmentsHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TreatmentsHistory">
+              <PropertyRef Name="Treatment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" />
+          <EntitySet Name="Treatments" EntityType="Self.Treatments" />
+          <EntitySet Name="TreatmentsHistory" EntityType="Self.TreatmentsHistory" />
+          <AssociationSet Name="FK_client" Association="Self.FK_client">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="TreatmentsHistory" EntitySet="TreatmentsHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_room" Association="Self.FK_room">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_treatment" Association="Self.FK_treatment">
+            <End Role="Treatments" EntitySet="Treatments" />
+            <End Role="TreatmentsHistory" EntitySet="TreatmentsHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HotelModelStoreContainer" CdmEntityContainer="HotelEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="HotelModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name_surname" ColumnName="Name_surname" />
+                <ScalarProperty Name="Id_number" ColumnName="Id_number" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Room_number" ColumnName="Room_number" />
+                <ScalarProperty Name="Is_here" ColumnName="Is_here" />
+                <ScalarProperty Name="Vegetarian" ColumnName="Vegetarian" />
+                <ScalarProperty Name="Questionnaire" ColumnName="Questionnaire" />
+                <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="HotelModel.Rooms">
+              <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="How_many_persons" ColumnName="How_many_persons" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Treatments">
+            <EntityTypeMapping TypeName="HotelModel.Treatments">
+              <MappingFragment StoreEntitySet="Treatments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TreatmentsHistory">
+            <EntityTypeMapping TypeName="HotelModel.TreatmentsHistory">
+              <MappingFragment StoreEntitySet="TreatmentsHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Client_id" ColumnName="Client_id" />
+                <ScalarProperty Name="Treatment_id" ColumnName="Treatment_id" />
+                <ScalarProperty Name="This_stay" ColumnName="This_stay" />
+                <ScalarProperty Name="Is_done" ColumnName="Is_done" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
