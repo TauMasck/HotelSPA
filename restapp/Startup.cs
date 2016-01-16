@@ -10,19 +10,16 @@ using RestApp.App_Start;
 [assembly: OwinStartup(typeof(RestApp.Startup))]
 namespace RestApp
 {
-    public class Startup
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
-        {
-           
-            HttpConfiguration config = new HttpConfiguration();
-            
+        {           
+            HttpConfiguration config = new HttpConfiguration();            
             WebApiConfig.Register(config);
-
             Swashbuckle.Bootstrapper.Init(config);
 
+            ConfigureAuth(app);
             app.UseWebApi(config);
-
         }
     }
 }
