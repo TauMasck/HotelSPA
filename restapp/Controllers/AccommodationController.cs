@@ -56,6 +56,14 @@ namespace RestApp.Controllers
                         Content = new StringContent("Room not found")
                     });
                 }
+                else if (!room.Available)
+                {
+                    throw new HttpResponseException(new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.Conflict,
+                        Content = new StringContent("Room is not available.")
+                    });
+                }
 
                 try
                 {

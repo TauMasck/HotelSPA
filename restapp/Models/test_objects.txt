@@ -16,7 +16,7 @@ Klient podaje, czy preferuje potrawy wegetariańskie, czy mięsne
 
 
 Recepcjonista kwateruje lub wykwateruje klienta z hotelu
-<TODO>
+
 
 Recepcjonista sprawdza, czy klient wypełnił ankietę
 
@@ -49,8 +49,24 @@ http://localhost:55534/api/treatments
 http://localhost:55534/api/clients/513444a0-63d6-4a7c-b5f9-846b341dbb67/putNewTreatments
 [{ "Id": "c74a9e9e-577b-4c07-9659-4a1122d36437"},
 { "Id": "9ece5bd5-3b7c-4677-93c1-605a7f313fe7"}]
-//przetestować obsluge dodawania powtórzen
 
 użyć rest commands
 
-//przetestować kwaterowanie klienta do pokoju
+{
+"ClientId": "513444a0-63d6-4a7c-b5f9-846b341dbb67",
+"RoomId": "c6feec25-f9c8-4161-a768-54988dc0c71b"
+}
+
+{
+        "NameSurname": "Ala Kowalska",
+        "IdNumber": "I8ADF0",
+        "Company": "Allegro",
+        "IsHere": true,
+        "Vegetarian": false,
+        "Questionnaire": true,
+        "Invoice": false
+}
+
+deploy na cloud (baza co najmniej) amazon aws - rds, heroku, openshift
+dokumentacja z prototypem - połączenie ramla z kodem (zapytania)
+autentyfikacja
