@@ -33,6 +33,9 @@ namespace RestApp.Controllers
 		/// <summary>
 		/// Get all clients.
 		/// </summary>
+		/// <remarks>Get existing clients</remarks>
+		/// <response code="400">Bad request</response>
+		/// <response code="500">Internal Server Error</response>
         [HttpGet]
         public IEnumerable<ClientViewModel> Get()
         {
@@ -45,6 +48,9 @@ namespace RestApp.Controllers
 		/// Get the client with specified id.
 		/// </summary>
 		/// <param name="id">Identifier.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="500">Internal Server Error</response>
+
         [HttpGet, ActionName("getById")]
         public ClientViewModel Get(Guid id)
         {
@@ -82,6 +88,8 @@ namespace RestApp.Controllers
 		/// </summary>
 		/// <returns>The treatments.</returns>
 		/// <param name="id">Identifier.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="500">Internal Server Error</response>
         [ActionName("getTreatments")]
         public IEnumerable<ClientHistoryViewModel> GetTreatments(Guid id) 
         {
@@ -97,7 +105,13 @@ namespace RestApp.Controllers
             }
             return _repository.GetTreatmentsHistory(id);//"udało się pobrać";
         }
-
+		/// <summary>
+		/// Gets the invoice.
+		/// </summary>
+		/// <returns>The invoice.</returns>
+		/// <param name="id">Identifier.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="500">Internal Server Error</response>
         [ActionName("getInvoice")]
         public InvoiceViewModel GetInvoice(Guid id)
         {
@@ -125,6 +139,8 @@ namespace RestApp.Controllers
 		/// Post the client according to specified model.
 		/// </summary>
 		/// <param name="model">Model.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="500">Internal Server Error</response>
         public HttpResponseMessage Post(ClientViewModel model)
         {
             if (ModelState.IsValid)
@@ -163,6 +179,9 @@ namespace RestApp.Controllers
 		/// </summary>
 		/// <param name="id">Identifier.</param>
 		/// <param name="model">Model.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="404">Not found</response>
+		/// <response code="500">Internal Server Error</response>
         public ClientViewModel Put(Guid id, ClientViewModel model)
         {
             CheckIfClientExists(id);
@@ -171,7 +190,15 @@ namespace RestApp.Controllers
             return _repository.Update(model);
         }
 
-
+		/// <summary>
+		/// Puts the quest.
+		/// </summary>
+		/// <returns>The quest.</returns>
+		/// <param name="id">Identifier.</param>
+		/// <param name="model">Model.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="404">Not found</response>
+		/// <response code="500">Internal Server Error</response>
         [HttpPut, ActionName("putQuest")]
         public Clients PutQuest(Guid id, ClientViewModel model)
         {
@@ -199,6 +226,15 @@ namespace RestApp.Controllers
             }
         }
 
+		/// <summary>
+		/// Puts the veg.
+		/// </summary>
+		/// <returns>The veg.</returns>
+		/// <param name="id">Identifier.</param>
+		/// <param name="model">Model.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="404">Not found</response>
+		/// <response code="500">Internal Server Error</response>
         [HttpPut, ActionName("putVeg")]
         public ClientViewModel PutVeg(Guid id, ClientViewModel model)
         {
@@ -226,6 +262,16 @@ namespace RestApp.Controllers
             }
         }
 
+
+		/// <summary>
+		/// Puts the done treatment.
+		/// </summary>
+		/// <returns>The done treatment.</returns>
+		/// <param name="id">Identifier.</param>
+		/// <param name="treat">Treat.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="404">Not found</response>
+		/// <response code="500">Internal Server Error</response>
         [HttpPut, ActionName("putDoneTreatment")]
         public ClientHistoryViewModel PutDoneTreatment(Guid id, TreatmentViewModel treat)
         {
@@ -251,6 +297,16 @@ namespace RestApp.Controllers
             }
         }
 
+
+		/// <summary>
+		/// Puts the new treatments.
+		/// </summary>
+		/// <returns>The new treatments.</returns>
+		/// <param name="id">Identifier.</param>
+		/// <param name="treats">Treats.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="404">Not found</response>
+		/// <response code="500">Internal Server Error</response>
         [HttpPut, ActionName("putNewTreatments")]
         public IEnumerable<ClientHistoryViewModel> PutNewTreatments(Guid id, IEnumerable<TreatmentViewModel> treats)
         {
@@ -286,6 +342,10 @@ namespace RestApp.Controllers
 		/// Delete the client with specified id.
 		/// </summary>
 		/// <param name="id">Identifier.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="404">Not found</response>
+		/// <response code="409">Conflict</response>
+		/// <response code="500">Internal Server Error</response>
         public HttpResponseMessage Delete(Guid id)
         {
             if (ModelState.IsValid)

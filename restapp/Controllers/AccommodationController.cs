@@ -9,6 +9,9 @@ using System.Web.Http;
 
 namespace RestApp.Controllers
 {
+	/// <summary>
+	/// Accommodation controller.
+	/// </summary>
     public class AccommodationController : ApiController
     {
         private AccommodationRepository _repository;

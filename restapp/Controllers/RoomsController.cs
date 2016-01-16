@@ -27,6 +27,8 @@ namespace RestApp.Controllers
 		/// <summary>
 		/// Get all rooms.
 		/// </summary>
+		/// <response code="400">Bad request</response>
+		/// <response code="500">Internal Server Error</response>
         public IEnumerable<RoomViewModel> Get()
         {
             return this.repository.GetAll();
@@ -37,6 +39,8 @@ namespace RestApp.Controllers
 		/// Post the room according to specified model.
 		/// </summary>
 		/// <param name="model">Model.</param>
+		/// <response code="400">Bad request</response>
+		/// <response code="500">Internal Server Error</response>
         public HttpResponseMessage Post(RoomViewModel model)
         {
             if (ModelState.IsValid)
