@@ -25,11 +25,12 @@ namespace RestApp.Controllers
 
         #region GET
         // GET treatments
-		/// <summary>
-		/// Get all treatments.
-		/// </summary>
-		/// <response code="400">Bad request</response>
-		/// <response code="500">Internal Server Error</response>
+        /// <summary>
+        /// Get all treatments.
+        /// </summary>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
+        [Route("api/Treatments/")]
         public IEnumerable<TreatmentViewModel> Get()
         {
             return _repository.GetAll();
@@ -38,12 +39,13 @@ namespace RestApp.Controllers
 
         #region POST
         // POST treatments 
-		/// <summary>
-		/// Post the treatment according to specified model.
-		/// </summary>
-		/// <param name="model">Model.</param>
-		/// <response code="400">Bad request</response>
-		/// <response code="500">Internal Server Error</response>
+        /// <summary>
+        /// Post the treatment according to specified model.
+        /// </summary>
+        /// <param name="model">Model.</param>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
+        [Route("api/Treatments/")]
         public HttpResponseMessage Post(TreatmentViewModel model)
         {
             if (ModelState.IsValid)
@@ -126,12 +128,11 @@ namespace RestApp.Controllers
         */
         #endregion
 
-		/// <summary>
-		/// Checks if treat exists.
-		/// </summary>
-		/// <returns>The if treat exists.</returns>
-		/// <param name="id">Identifier.</param>
-
+        /// <summary>
+        /// Checks if treat exists.
+        /// </summary>
+        /// <returns>The if treat exists.</returns>
+        /// <param name="id">Identifier.</param>
         public static TreatmentViewModel CheckIfTreatExists(Guid id)
         {
             TreatmentViewModel treat = null;

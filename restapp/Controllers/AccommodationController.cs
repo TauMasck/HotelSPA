@@ -34,8 +34,9 @@ namespace RestApp.Controllers
         /// Post the object with client's and room's id.
         /// </summary>
         /// <param name="model">Model.</param>
-		/// <response code="400">Bad request</response>
-		/// <response code="500">Internal Server Error</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
+        [Route("api/Accommodation/")]
         public HttpResponseMessage Post(AccommodationViewModel model)
         {
             if (ModelState.IsValid)
