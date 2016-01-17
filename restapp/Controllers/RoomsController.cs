@@ -25,23 +25,25 @@ namespace RestApp.Controllers
         }
 
         // GET rooms
-		/// <summary>
-		/// Get all rooms.
-		/// </summary>
-		/// <response code="400">Bad request</response>
-		/// <response code="500">Internal Server Error</response>
+        /// <summary>
+        /// Get all rooms.
+        /// </summary>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
+        [Route("api/Rooms/")]
         public IEnumerable<RoomViewModel> Get()
         {
             return this.repository.GetAll();
         }
 
         // POST rooms 
-		/// <summary>
-		/// Post the room according to specified model.
-		/// </summary>
-		/// <param name="model">Model.</param>
-		/// <response code="400">Bad request</response>
-		/// <response code="500">Internal Server Error</response>
+        /// <summary>
+        /// Post the room according to specified model.
+        /// </summary>
+        /// <param name="model">Model.</param>
+        /// <response code="400">Bad request</response>
+        /// <response code="500">Internal Server Error</response>
+        [Route("api/Rooms/")]
         public HttpResponseMessage Post(RoomViewModel model)
         {
             if (ModelState.IsValid)
@@ -89,11 +91,12 @@ namespace RestApp.Controllers
 
 
         // PUT clients/{id}
-		/// <summary>
-		/// Put the room with specified id and changes its status.
-		/// </summary>
-		/// <param name="id">Identifier.</param>
-		/// <param name="active">If set to <c>true</c> active.</param>
+        /// <summary>
+        /// Put the room with specified id and changes its status.
+        /// </summary>
+        /// <param name="id">Identifier.</param>
+        /// <param name="active">If set to <c>true</c> active.</param>
+        [Route("api/Rooms/")]
         public HttpResponseMessage Put(Guid id, bool active)
         {
             if (ModelState.IsValid)
