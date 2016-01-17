@@ -12,6 +12,7 @@ namespace RestApp.Controllers
 	/// <summary>
 	/// Rooms controller class.
 	/// </summary>
+    [Authorize]
     public class RoomsController : ApiController
     {
         private RoomRepository repository;

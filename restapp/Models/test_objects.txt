@@ -70,3 +70,20 @@ użyć rest commands
 deploy na cloud (baza co najmniej) amazon aws - rds, heroku, openshift
 dokumentacja z prototypem - połączenie ramla z kodem (zapytania)
 autentyfikacja
+
+
+/api/Account/Register
+{
+    Email: "abc@kk.pl",
+    Password: "asd123",
+    ConfirmPassword: "asd123"
+}
+{"Email":"alice@example.com","Password":"Password1!","ConfirmPassword":"Password1!"}
+
+
+/Token
+{
+    grant_type: 'password',
+    username: self.loginEmail(),
+    password: self.loginPassword()
+}
