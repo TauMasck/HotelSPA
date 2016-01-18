@@ -12,7 +12,7 @@ namespace RestApp.Controllers
     /// <summary>
     /// Treatments controller class.
     /// </summary>
-	[RoutePrefix("api/Treatments/")]
+    [RoutePrefix("api/Treatments/")]
     public class TreatmentsController : ApiController
     {
         private static TreatmentRepository _repository;
