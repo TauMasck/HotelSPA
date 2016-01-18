@@ -134,6 +134,7 @@
   <ItemGroup>
     <Content Include="App_Data\RestApp.XML" />
     <Content Include="Models\Inserts.sql" />
+    <Content Include="Models\AuthDb.sql" />
     <Content Include="Models\REST.sql" />
     <Content Include="Models\test_objects.txt" />
     <Content Include="packages.config" />
