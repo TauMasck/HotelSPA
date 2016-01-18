@@ -13,7 +13,7 @@ namespace RestApp.Controllers
 	/// Rooms controller class.
 	/// </summary>
     [Authorize]
-    [Route("api/Rooms/")]
+	[RoutePrefix("api/Rooms/")]
     public class RoomsController : ApiController
     {
         private RoomRepository repository;

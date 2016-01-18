@@ -12,7 +12,7 @@ namespace RestApp.Controllers
     /// <summary>
     /// Accommodation controller.
     /// </summary>
-    [Route("api/Accommodation/")]
+	[RoutePrefix("api/Accommodation/")]
     public class AccommodationController : ApiController
     {
         private AccommodationRepository _repository;
