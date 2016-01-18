@@ -16,7 +16,7 @@ namespace RestApp.Controllers
     /// <summary>
     /// Clients controller class.
     /// </summary>
-	[RoutePrefix("api/Clients/")]
+    [RoutePrefix("api/Clients/")]
     public class ClientsController : ApiController
     {
         private ClientRepository _repository;
