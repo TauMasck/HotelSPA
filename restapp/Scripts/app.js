@@ -28,7 +28,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '/api/rooms',
+            url: '/api/rooms/GetOne',
             headers: headers
         }).done(function (data) {
             self.result(data);
