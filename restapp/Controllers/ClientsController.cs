@@ -13,9 +13,10 @@ using System.Web.Http;
 
 namespace RestApp.Controllers
 {
-	/// <summary>
-	/// Clients controller class.
-	/// </summary>
+    /// <summary>
+    /// Clients controller class.
+    /// </summary>
+    [Route("api/Clients/")]
     public class ClientsController : ApiController
     {
         private ClientRepository _repository;
@@ -37,7 +38,7 @@ namespace RestApp.Controllers
 		/// <response code="400">Bad request</response>
 		/// <response code="500">Internal Server Error</response>
         [HttpGet]
-        [Route("api/Clients/")]
+        [Route("")]
         public IEnumerable<ClientViewModel> Get()
         {
             return _repository.GetAll();
@@ -142,7 +143,7 @@ namespace RestApp.Controllers
         /// <param name="model">Model.</param>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
-        [Route("api/Clients/")]
+        [Route("")]
         public HttpResponseMessage Post(ClientViewModel model)
         {
             if (ModelState.IsValid)
@@ -186,7 +187,7 @@ namespace RestApp.Controllers
         /// <response code="400">Bad request</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Internal Server Error</response>
-        [Route("api/Clients/")]
+        [Route("")]
         public ClientViewModel Put(Guid id, ClientViewModel model)
         {
             CheckIfClientExists(id);
@@ -351,7 +352,7 @@ namespace RestApp.Controllers
         /// <response code="404">Not found</response>
         /// <response code="409">Conflict</response>
         /// <response code="500">Internal Server Error</response>
-        [Route("api/Clients/")]
+        [Route("")]
         public HttpResponseMessage Delete(Guid id)
         {
             if (ModelState.IsValid)

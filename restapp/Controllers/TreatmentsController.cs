@@ -9,9 +9,10 @@ using System.Web.Http;
 
 namespace RestApp.Controllers
 {
-	/// <summary>
-	/// Treatments controller class.
-	/// </summary>
+    /// <summary>
+    /// Treatments controller class.
+    /// </summary>
+    [Route("api/Treatments/")]
     public class TreatmentsController : ApiController
     {
         private static TreatmentRepository _repository;
@@ -30,7 +31,7 @@ namespace RestApp.Controllers
         /// </summary>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
-        [Route("api/Treatments/")]
+        [Route("")]
         public IEnumerable<TreatmentViewModel> Get()
         {
             return _repository.GetAll();
@@ -45,7 +46,7 @@ namespace RestApp.Controllers
         /// <param name="model">Model.</param>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
-        [Route("api/Treatments/")]
+        [Route("")]
         public HttpResponseMessage Post(TreatmentViewModel model)
         {
             if (ModelState.IsValid)

@@ -13,6 +13,7 @@ namespace RestApp.Controllers
 	/// Rooms controller class.
 	/// </summary>
     [Authorize]
+    [Route("api/Rooms/")]
     public class RoomsController : ApiController
     {
         private RoomRepository repository;
@@ -30,7 +31,7 @@ namespace RestApp.Controllers
         /// </summary>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
-        [Route("api/Rooms/")]
+        [Route("")]
         public IEnumerable<RoomViewModel> Get()
         {
             return this.repository.GetAll();
@@ -43,7 +44,7 @@ namespace RestApp.Controllers
         /// <param name="model">Model.</param>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
-        [Route("api/Rooms/")]
+        [Route("")]
         public HttpResponseMessage Post(RoomViewModel model)
         {
             if (ModelState.IsValid)
@@ -96,7 +97,7 @@ namespace RestApp.Controllers
         /// </summary>
         /// <param name="id">Identifier.</param>
         /// <param name="active">If set to <c>true</c> active.</param>
-        [Route("api/Rooms/")]
+        [Route("")]
         public HttpResponseMessage Put(Guid id, bool active)
         {
             if (ModelState.IsValid)

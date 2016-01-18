@@ -9,9 +9,10 @@ using System.Web.Http;
 
 namespace RestApp.Controllers
 {
-	/// <summary>
-	/// Accommodation controller.
-	/// </summary>
+    /// <summary>
+    /// Accommodation controller.
+    /// </summary>
+    [Route("api/Accommodation/")]
     public class AccommodationController : ApiController
     {
         private AccommodationRepository _repository;
@@ -36,7 +37,7 @@ namespace RestApp.Controllers
         /// <param name="model">Model.</param>
         /// <response code="400">Bad request</response>
         /// <response code="500">Internal Server Error</response>
-        [Route("api/Accommodation/")]
+        [Route("")]
         public HttpResponseMessage Post(AccommodationViewModel model)
         {
             if (ModelState.IsValid)
