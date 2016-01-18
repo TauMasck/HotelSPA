@@ -12,26 +12,18 @@ namespace RestApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Clients
+    public partial class AspNetRoles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clients()
+        public AspNetRoles()
         {
-            this.TreatmentsHistory = new HashSet<TreatmentsHistory>();
+            this.AspNetUsers = new HashSet<AspNetUsers>();
         }
     
-        public System.Guid Id { get; set; }
-        public string Name_surname { get; set; }
-        public string Id_number { get; set; }
-        public string Company { get; set; }
-        public Nullable<System.Guid> Room_number { get; set; }
-        public int Is_here { get; set; }
-        public int Vegetarian { get; set; }
-        public int Questionnaire { get; set; }
-        public int Invoice { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TreatmentsHistory> TreatmentsHistory { get; set; }
-        public virtual Rooms Rooms { get; set; }
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
     }
 }

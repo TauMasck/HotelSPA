@@ -98,6 +98,7 @@
     <Reference Include="Swashbuckle.Core">
       <HintPath>..\packages\Swashbuckle.Core.4.0\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -222,6 +223,8 @@
     <Content Include="Models\REST.sql" />
     <Content Include="Models\test_objects.txt" />
     <Content Include="packages.config" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <EntityDeploy Include="Models\HotelSPAModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HotelSPAModel.Designer.cs</LastGenOutput>
@@ -239,8 +242,6 @@
       <DependentUpon>HotelSPAModel.edmx</DependentUpon>
       <LastGenOutput>HotelSPAModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\RestApp.pubxml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
@@ -300,11 +301,26 @@
     </Compile>
     <Compile Include="Models\AccommodationViewModel.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>HotelSPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>HotelSPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>HotelSPAModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>HotelSPAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ClientHistoryViewModel.cs" />
     <Compile Include="Models\Clients.cs">
       <DependentUpon>HotelSPAModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientViewModel.cs" />
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>HotelSPAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HotelSPAModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -12,14 +12,14 @@ namespace RestApp.Repository
 	/// </summary>
     public class TreatmentRepository : MainRepository
     {
-        private HotelEntities context;
+        private HotelSPAEntities context;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RestApp.Repository.TreatmentRepository"/> class.
 		/// </summary>
         public TreatmentRepository()
         {
-            context = new HotelEntities();
+            context = new HotelSPAEntities();
         }
 
 		/// <summary>

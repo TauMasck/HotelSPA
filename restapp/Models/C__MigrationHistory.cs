@@ -12,15 +12,11 @@ namespace RestApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TreatmentsHistory
+    public partial class C__MigrationHistory
     {
-        public System.Guid Id { get; set; }
-        public System.Guid Client_id { get; set; }
-        public System.Guid Treatment_id { get; set; }
-        public int This_stay { get; set; }
-        public int Is_done { get; set; }
-    
-        public virtual Clients Clients { get; set; }
-        public virtual Treatments Treatments { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

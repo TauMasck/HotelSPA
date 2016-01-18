@@ -12,15 +12,13 @@ namespace RestApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TreatmentsHistory
+    public partial class AspNetUserClaims
     {
-        public System.Guid Id { get; set; }
-        public System.Guid Client_id { get; set; }
-        public System.Guid Treatment_id { get; set; }
-        public int This_stay { get; set; }
-        public int Is_done { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual Clients Clients { get; set; }
-        public virtual Treatments Treatments { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }
