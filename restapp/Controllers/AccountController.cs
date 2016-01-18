@@ -19,7 +19,7 @@ using RestApp.Providers;
 using RestApp.Results;
 using RestApp;
 
-namespace LocalAccountsApp.Controllers
+namespace RestApp.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]

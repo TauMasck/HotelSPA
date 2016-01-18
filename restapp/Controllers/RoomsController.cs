@@ -16,13 +16,13 @@ namespace RestApp.Controllers
     [RoutePrefix("api/Rooms")]
     public class RoomsController : ApiController
     {
-        private RoomRepository repository;
+        private RoomRepository _repository;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RestApp.Controllers.RoomsController"/> class.
 		/// </summary>
         public RoomsController() {
-            this.repository = new RoomRepository();
+            _repository = new RoomRepository();
         }
 
         // GET rooms
@@ -34,8 +34,15 @@ namespace RestApp.Controllers
         [Route("")]
         public IEnumerable<RoomViewModel> Get()
         {
-            return this.repository.GetAll();
+            return _repository.GetAll();
         }
+
+
+        public string GetOne()
+        {
+            return "Cena pokoju: " + _repository.GetAll().FirstOrDefault().Price.ToString();
+        }
+
 
         // POST rooms 
         /// <summary>
@@ -49,7 +56,7 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                this.repository.Add(model);
+                _repository.Add(model);
 
                 var response = Request.CreateResponse<RoomViewModel>(HttpStatusCode.Created, model);
 
@@ -73,7 +80,7 @@ namespace RestApp.Controllers
         //        //ew.2 łapanie po różnych wyjątkach tak jak niżej jest
         //        try
         //        {
-        //            repository.UpdateRoomById(id, model);
+        //            _repository.UpdateRoomById(id, model);
         //        }
 
         //        catch (Exception ex)
@@ -102,12 +109,12 @@ namespace RestApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingRoom = this.repository.Get(id);
+                var existingRoom = _repository.Get(id);
 
                 if (existingRoom == null)
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 
-                var room = this.repository.ChangeStatus(id, active);
+                var room = _repository.ChangeStatus(id, active);
      
                 return Request.CreateResponse(HttpStatusCode.OK, room);
             }
