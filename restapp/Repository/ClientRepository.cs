@@ -16,7 +16,7 @@ namespace RestApp.Repository
 		/// <summary>
 		/// The context.
 		/// </summary>
-        private HotelSPAEntities _context;
+        private HotelEntities _context;
         private TreatmentRepository _treatmentRepository;
 
 		/// <summary>
@@ -24,7 +24,7 @@ namespace RestApp.Repository
 		/// </summary>
         public ClientRepository()
         {
-            _context = new HotelSPAEntities();
+            _context = new HotelEntities();
             _treatmentRepository = new TreatmentRepository();
         }
 

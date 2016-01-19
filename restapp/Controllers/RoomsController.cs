@@ -12,7 +12,7 @@ namespace RestApp.Controllers
 	/// <summary>
 	/// Rooms controller class.
 	/// </summary>
-    [Authorize]
+    
     [RoutePrefix("api/Rooms")]
     public class RoomsController : ApiController
     {
@@ -37,7 +37,7 @@ namespace RestApp.Controllers
             return _repository.GetAll();
         }
 
-
+        [Authorize]
         public string GetOne()
         {
             return "Cena pokoju: " + _repository.GetAll().FirstOrDefault().Price.ToString();

@@ -36,6 +36,7 @@ namespace RestApp.Controllers
         /// </summary>
         /// <param name="model">Model.</param>
         /// <response code="400">Bad request</response>
+        /// <response code="409">Something goes wrong.</response>
         /// <response code="500">Internal Server Error</response>
         [Route("")]
         public HttpResponseMessage Post(AccommodationViewModel model)

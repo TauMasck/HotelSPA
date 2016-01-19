@@ -15,6 +15,59 @@ CREATE TABLE [dbo].[AspNetUsers] (
 );
 
 
+
+CREATE TABLE [dbo].[AspNetRoles] (
+    [Id]   NVARCHAR (128) NOT NULL,
+    [Name] NVARCHAR (256) NOT NULL,
+    CONSTRAINT [PK_dbo.AspNetRoles] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+
+CREATE TABLE [dbo].[AspNetUserClaims] (
+    [Id]         INT            IDENTITY (1, 1) NOT NULL,
+    [UserId]     NVARCHAR (128) NOT NULL,
+    [ClaimType]  NVARCHAR (MAX) NULL,
+    [ClaimValue] NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_dbo.AspNetUserClaims] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+
+
+CREATE TABLE [dbo].[AspNetUserLogins] (
+    [LoginProvider] NVARCHAR (128) NOT NULL,
+    [ProviderKey]   NVARCHAR (128) NOT NULL,
+    [UserId]        NVARCHAR (128) NOT NULL,
+    CONSTRAINT [PK_dbo.AspNetUserLogins] PRIMARY KEY CLUSTERED ([LoginProvider] ASC, [ProviderKey] ASC, [UserId] ASC),
+    CONSTRAINT [FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+
+
+
+CREATE TABLE [dbo].[__MigrationHistory] (
+    [MigrationId]    NVARCHAR (150)  NOT NULL,
+    [ContextKey]     NVARCHAR (300)  NOT NULL,
+    [Model]          VARBINARY (MAX) NOT NULL,
+    [ProductVersion] NVARCHAR (32)   NOT NULL,
+    CONSTRAINT [PK_dbo.__MigrationHistory] PRIMARY KEY CLUSTERED ([MigrationId] ASC, [ContextKey] ASC)
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_UserId]
+    ON [dbo].[AspNetUserLogins]([UserId] ASC);
+	
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex]
+    ON [dbo].[AspNetRoles]([Name] ASC);
+GO
+CREATE NONCLUSTERED INDEX [IX_UserId]
+    ON [dbo].[AspNetUserClaims]([UserId] ASC);
+
+
+
+	
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex]
     ON [dbo].[AspNetUsers]([UserName] ASC);
@@ -36,52 +89,3 @@ CREATE NONCLUSTERED INDEX [IX_UserId]
 GO
 CREATE NONCLUSTERED INDEX [IX_RoleId]
     ON [dbo].[AspNetUserRoles]([RoleId] ASC);
-
-CREATE TABLE [dbo].[__MigrationHistory] (
-    [MigrationId]    NVARCHAR (150)  NOT NULL,
-    [ContextKey]     NVARCHAR (300)  NOT NULL,
-    [Model]          VARBINARY (MAX) NOT NULL,
-    [ProductVersion] NVARCHAR (32)   NOT NULL,
-    CONSTRAINT [PK_dbo.__MigrationHistory] PRIMARY KEY CLUSTERED ([MigrationId] ASC, [ContextKey] ASC)
-);
-
-
-CREATE TABLE [dbo].[AspNetRoles] (
-    [Id]   NVARCHAR (128) NOT NULL,
-    [Name] NVARCHAR (256) NOT NULL,
-    CONSTRAINT [PK_dbo.AspNetRoles] PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex]
-    ON [dbo].[AspNetRoles]([Name] ASC);
-
-
-CREATE TABLE [dbo].[AspNetUserClaims] (
-    [Id]         INT            IDENTITY (1, 1) NOT NULL,
-    [UserId]     NVARCHAR (128) NOT NULL,
-    [ClaimType]  NVARCHAR (MAX) NULL,
-    [ClaimValue] NVARCHAR (MAX) NULL,
-    CONSTRAINT [PK_dbo.AspNetUserClaims] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_dbo.AspNetUserClaims_dbo.AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
-);
-
-
-GO
-CREATE NONCLUSTERED INDEX [IX_UserId]
-    ON [dbo].[AspNetUserClaims]([UserId] ASC);
-
-
-CREATE TABLE [dbo].[AspNetUserLogins] (
-    [LoginProvider] NVARCHAR (128) NOT NULL,
-    [ProviderKey]   NVARCHAR (128) NOT NULL,
-    [UserId]        NVARCHAR (128) NOT NULL,
-    CONSTRAINT [PK_dbo.AspNetUserLogins] PRIMARY KEY CLUSTERED ([LoginProvider] ASC, [ProviderKey] ASC, [UserId] ASC),
-    CONSTRAINT [FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
-);
-
-
-GO
-CREATE NONCLUSTERED INDEX [IX_UserId]
-    ON [dbo].[AspNetUserLogins]([UserId] ASC);

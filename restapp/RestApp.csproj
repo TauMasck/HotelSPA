@@ -242,6 +242,8 @@
       <DependentUpon>HotelSPAModel.edmx</DependentUpon>
       <LastGenOutput>HotelSPAModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\HotelSPA %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\HotelSPA.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\RestApp.pubxml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />

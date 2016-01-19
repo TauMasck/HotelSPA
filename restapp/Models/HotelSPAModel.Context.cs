@@ -13,10 +13,10 @@ namespace RestApp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HotelSPAEntities : DbContext
+    public partial class HotelEntities : DbContext
     {
-        public HotelSPAEntities()
-            : base("name=HotelSPAEntities")
+        public HotelEntities()
+            : base("name=HotelEntities")
         {
         }
     

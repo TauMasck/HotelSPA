@@ -21,7 +21,7 @@ namespace RestApp.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("SQLConnection", throwIfV1Schema: false)
+            : base("Entities", throwIfV1Schema: false)
         {
         }
         
